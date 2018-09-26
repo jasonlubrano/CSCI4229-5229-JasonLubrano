@@ -21,7 +21,8 @@ int th=0;         //  Azimuth of view angle
 int ph=0;         //  Elevation of view angle
 int fov=55;       //  Field of view (for perspective)
 double asp=1;     //  Aspect ratio
-double dim=8.0;   //  Size of world
+double dim=15.0;   //  Size of world
+double zh=0;      //  Rotation of Mech
 
 
 //  Cosine and Sine in degrees
@@ -93,37 +94,37 @@ static void mechFeet(double x,double y,double z,
 	//  feet use quads
 	glBegin(GL_QUADS);
 	//  Front
-	glColor3f(0.662, 0.662, 0.662);
+	glColor3f(0.66, 0.66, 0.66);
 	glVertex3f(0, wid, 0);
 	glVertex3f(len, wid, 0);
 	glVertex3f(len, 0, 0);
 	glVertex3f(0, 0, 0);
 	//  Back
-	glColor3f(0.662, 0.662, 0.662);
+	glColor3f(0.65, 0.65, 0.65);
 	glVertex3f(0, wid, dep);
 	glVertex3f(len, wid, dep);
 	glVertex3f(len, 0, dep);
 	glVertex3f(0, 0, dep);
 	//  Right
-	glColor3f(0.752, 0.752, 0.752);
+	glColor3f(0.76, 0.76, 0.76);
 	glVertex3f(len, wid, 0);
 	glVertex3f(len, wid, dep);
 	glVertex3f(len, 0, dep);
 	glVertex3f(len, 0, 0);
 	//  Left
-	glColor3f(0.752, 0.752, 0.752);
+	glColor3f(0.75, 0.75, 0.75);
 	glVertex3f(0, wid, dep);
 	glVertex3f(0, wid, 0);
 	glVertex3f(0, 0, 0);
 	glVertex3f(0, 0, dep);
 	//  Top
-	glColor3f(0.827, 0.827, 0.827);
+	glColor3f(0.82, 0.82, 0.82);
 	glVertex3f(0, wid, dep);
 	glVertex3f(len, wid, dep);
 	glVertex3f(len, wid, 0);
 	glVertex3f(0, wid, 0);
 	//  Bottom
-	glColor3f(0.501, 0.501, 0.501);
+	glColor3f(0.50, 0.50, 0.50);
 	glVertex3f(0, 0, dep);
 	glVertex3f(len, 0, dep);
 	glVertex3f(len, 0, 0);
@@ -155,37 +156,37 @@ static void mechTurrent(double x,double y,double z,
 	//  feet use quads
 	glBegin(GL_QUADS);
 	//  Front
-	glColor3f(0.662, 0.662, 0.662);
+	glColor3f(0.65, 0.65, 0.65);
 	glVertex3f(0, wid, 0);
 	glVertex3f(len, wid, 0);
 	glVertex3f(len, 0, 0);
 	glVertex3f(0, 0, 0);
 	//  Back
-	glColor3f(0.662, 0.662, 0.662);
+	glColor3f(0.64, 0.64, 0.64);
 	glVertex3f(0, wid, dep);
 	glVertex3f(len, wid, dep);
 	glVertex3f(len, 0, dep);
 	glVertex3f(0, 0, dep);
 	//  Right
-	glColor3f(0.752, 0.752, 0.752);
+	glColor3f(0.73, 0.73, 0.73);
 	glVertex3f(len, wid, 0);
 	glVertex3f(len, wid, dep);
 	glVertex3f(len, 0, dep);
 	glVertex3f(len, 0, 0);
 	//  Left
-	glColor3f(0.752, 0.752, 0.752);
+	glColor3f(0.75, 0.75, 0.75);
 	glVertex3f(0, wid, dep);
 	glVertex3f(0, wid, 0);
 	glVertex3f(0, 0, 0);
 	glVertex3f(0, 0, dep);
 	//  Top
-	glColor3f(0.827, 0.827, 0.827);
+	glColor3f(0.83, 0.83, 0.83);
 	glVertex3f(0, wid, dep);
 	glVertex3f(len, wid, dep);
 	glVertex3f(len, wid, 0);
 	glVertex3f(0, wid, 0);
 	//  Bottom
-	glColor3f(0.501, 0.501, 0.501);
+	glColor3f(0.51, 0.51, 0.51);
 	glVertex3f(0, 0, dep);
 	glVertex3f(len, 0, dep);
 	glVertex3f(len, 0, 0);
@@ -198,7 +199,7 @@ static void mechTurrent(double x,double y,double z,
 }
 
 /*
- *  Draw mech upper leg
+ *  Draw mech right leg
  *     at (x,y,z)
  *     dimensions (dx,dy,dz)
  *     rotated th about the y axis
@@ -216,7 +217,7 @@ static void mechRightLeg(double x,double y,double z,
 	glBegin(GL_QUADS);
 	// BOTTOM LEG
 	//  Front
-	glColor3f(0.662, 0.662, 0.662);
+	glColor3f(0.68, 0.68, 0.68);
 	glVertex3f(1, 2, 0);
 	glVertex3f(2, 2, 0);
 	glVertex3f(2, 0, 0);
@@ -228,7 +229,7 @@ static void mechRightLeg(double x,double y,double z,
 	glVertex3f(2, 0, 2);
 	glVertex3f(1, 0, 2);
 	//  Right
-	glColor3f(0.752, 0.752, 0.752);
+	glColor3f(0.73, 0.73, 0.73);
 	glVertex3f(2, 2, 0);
 	glVertex3f(2, 2, 2);
 	glVertex3f(2, 0, 2);
@@ -249,7 +250,7 @@ static void mechRightLeg(double x,double y,double z,
 
 	// UPPER LEG
 	//  Front
-	glColor3f(0.662, 0.662, 0.662);
+	glColor3f(0.69, 0.69, 0.69);
 	glVertex3f(0, 4, 0);
 	glVertex3f(2, 2, 0);
 	glVertex3f(1, 2, 0);
@@ -261,13 +262,13 @@ static void mechRightLeg(double x,double y,double z,
 	glVertex3f(1, 2, 2);
 	glVertex3f(0, 3, 2);
 	//  Outseam
-	glColor3f(0.752, 0.752, 0.752);
+	glColor3f(0.74, 0.74, 0.74);
 	glVertex3f(0, 4, 0);
 	glVertex3f(0, 4, 2);
 	glVertex3f(2, 2, 2);
 	glVertex3f(2, 2, 0);
 	//  Inseam
-	glColor3f(0.752, 0.752, 0.752);
+	glColor3f(0.75, 0.75, 0.75);
 	glVertex3f(0, 3, 0);
 	glVertex3f(0, 3, 2);
 	glVertex3f(1, 2, 2);
@@ -278,6 +279,12 @@ static void mechRightLeg(double x,double y,double z,
 	glPopMatrix();
 }
 
+/*
+ *  Draw mech left leg
+ *     at (x,y,z)
+ *     dimensions (dx,dy,dz)
+ *     rotated th about the y axis
+ */
 static void mechLeftLeg(double x,double y,double z,
 						double dx,double dy,double dz,
 						double th) {
@@ -291,32 +298,32 @@ static void mechLeftLeg(double x,double y,double z,
 	glBegin(GL_QUADS);
 	// BOTTOM LEG
 	//  Front
-	glColor3f(0.662, 0.662, 0.662);
+	glColor3f(0.68, 0.68, 0.68);
 	glVertex3f(0, 2, 0);
 	glVertex3f(1, 2, 0);
 	glVertex3f(1, 0, 0);
 	glVertex3f(0, 0, 0);
 	//  Back
-	glColor3f(0.662, 0.662, 0.662);
+	glColor3f(0.65, 0.65, 0.65);
 	glVertex3f(0, 2, 2);
 	glVertex3f(1, 2, 2);
 	glVertex3f(1, 0, 2);
 	glVertex3f(0, 0, 2);
 	//  Right
-	glColor3f(0.752, 0.752, 0.752);
+	glColor3f(0.74, 0.74, 0.74);
 	glVertex3f(1, 2, 0);
 	glVertex3f(1, 2, 2);
 	glVertex3f(1, 0, 2);
 	glVertex3f(1, 0, 0);
 	//  Left
-	glColor3f(0.752, 0.752, 0.752);
+	glColor3f(0.73, 0.73, 0.73);
 	glVertex3f(0, 2, 0);
 	glVertex3f(0, 2, 2);
 	glVertex3f(0, 0, 2);
 	glVertex3f(0, 0, 0);
 	//  Top not needed
 	//  Bottom
-	glColor3f(0.501, 0.501, 0.501);
+	glColor3f(0.52, 0.52, 0.52);
 	glVertex3f(0, 0, 2);
 	glVertex3f(1, 0, 2);
 	glVertex3f(1, 0, 0);
@@ -324,29 +331,136 @@ static void mechLeftLeg(double x,double y,double z,
 
 	// UPPER LEG
 	//  Front
-	glColor3f(0.662, 0.662, 0.662);
+	glColor3f(0.66, 0.66, 0.66);
 	glVertex3f(2, 4, 0);
 	glVertex3f(2, 3, 0);
 	glVertex3f(1, 2, 0);
 	glVertex3f(0, 2, 0);
 	//  Back
-	glColor3f(0.662, 0.662, 0.662);
+	glColor3f(0.65, 0.65, 0.65);
 	glVertex3f(2, 4, 2);
 	glVertex3f(2, 3, 2);
 	glVertex3f(1, 2, 2);
 	glVertex3f(0, 2, 2);
 	//  Outseam
-	glColor3f(0.752, 0.752, 0.752);
+	glColor3f(0.77, 0.77, 0.77);
 	glVertex3f(2, 4, 0);
 	glVertex3f(2, 4, 2);
 	glVertex3f(0, 2, 2);
 	glVertex3f(0, 2, 0);
 	//  Inseam
-	glColor3f(0.752, 0.752, 0.752);
+	glColor3f(0.75, 0.75, 0.75);
 	glVertex3f(2, 3, 0);
 	glVertex3f(2, 3, 2);
 	glVertex3f(1, 2, 2);
 	glVertex3f(1, 2, 0);
+	//  End
+	glEnd();
+	//  Undo transformations
+	glPopMatrix();
+}
+
+/*
+ *  Draw mech body
+ *     at (x,y,z)
+ *     dimensions (dx,dy,dz)
+ *     rotated th about the y axis
+ */
+static void mechBody(double x,double y,double z,
+						double dx,double dy,double dz,
+						double th) {
+	//  Save transformation
+	glPushMatrix();
+	//  Offset
+	glTranslated(x, y, z);
+	glRotated(th, 0, 0, 1);
+	glScaled(dx, dy, dz);
+	//  feet use quads
+	glBegin(GL_QUADS);
+	//  Front top
+	glColor3f(0.66, 0.8, 0.84); // front glass
+	glVertex3f(0, 4, 2);
+	glVertex3f(1, 4, 2);
+	glVertex3f(1, 2, 0);
+	glVertex3f(0, 2, 0);
+	//	Front face
+	glColor3f(0.66, 0.8, 0.84); // front glass
+	glVertex3f(0, 2, 0);
+	glVertex3f(1, 2, 0);
+	glVertex3f(1, 1, 0);
+	glVertex3f(0, 1, 0);
+	//  Front under
+	glColor3f(0.65, 0.65, 0.65);
+	glVertex3f(0, 1, 0);
+	glVertex3f(1, 1, 0);
+	glVertex3f(1, 0, 1);
+	glVertex3f(0, 0, 1);
+	//	Undercarriage
+	glColor3f(0.50, 0.50, 0.50);
+	glVertex3f(0, 0, 4);
+	glVertex3f(1, 0, 4);
+	glVertex3f(1, 0, 1);
+	glVertex3f(0, 0, 1);
+	//  Back undercarrage
+	glColor3f(0.68, 0.68, 0.68);
+	glVertex3f(0, 2, 6);
+	glVertex3f(1, 2, 6);
+	glVertex3f(1, 0, 4);
+	glVertex3f(0, 0, 4);
+	//  Back
+	glColor3f(0.64, 0.64, 0.64);
+	glVertex3f(0, 4, 6);
+	glVertex3f(1, 4, 6);
+	glVertex3f(1, 2, 6);
+	glVertex3f(0, 2, 6);
+	//  Top
+	glColor3f(0.82, 0.82, 0.82);
+	glVertex3f(0, 4, 6);
+	glVertex3f(1, 4, 6);
+	glVertex3f(1, 4, 2);
+	glVertex3f(0, 4, 2);
+	//  Right
+	glColor3f(0.75, 0.75, 0.75);
+	glVertex3f(1, 4, 6);
+	glVertex3f(1, 4, 2);
+	glVertex3f(1, 2, 2);
+	glVertex3f(1, 2, 6);
+	glColor3f(0.66, 0.8, 0.84); // front glass
+	glVertex3f(1, 4, 2);
+	glVertex3f(1, 2, 0);
+	glVertex3f(1, 1, 0);
+	glVertex3f(1, 1, 2);
+	glColor3f(0.76, 0.76, 0.76);
+	glVertex3f(1, 1, 5);
+	glVertex3f(1, 1, 0);
+	glVertex3f(1, 0, 1);
+	glVertex3f(1, 0, 4);
+	glColor3f(0.69, 0.19, 0.37); // maroon stripe
+	glVertex3f(1, 2, 6);
+	glVertex3f(1, 2, 2);
+	glVertex3f(1, 1, 2);
+	glVertex3f(1, 1, 5);
+	//	Left
+	glColor3f(0.69, 0.19, 0.37); // maroon stripe
+	glVertex3f(0, 2, 2);
+	glVertex3f(0, 2, 6);
+	glVertex3f(0, 1, 5);
+	glVertex3f(0, 1, 2);
+	glColor3f(0.76, 0.76, 0.76);
+	glVertex3f(0, 1, 0);
+	glVertex3f(0, 1, 5);
+	glVertex3f(0, 0, 4);
+	glVertex3f(0, 0, 1);
+	glColor3f(0.66, 0.8, 0.84); // front glass
+	glVertex3f(0, 2, 0);
+	glVertex3f(0, 4, 2);
+	glVertex3f(0, 1, 2);
+	glVertex3f(0, 1, 0);
+	glColor3f(0.74, 0.74, 0.74);
+	glVertex3f(0, 4, 2);
+	glVertex3f(0, 4, 6);
+	glVertex3f(0, 2, 6);
+	glVertex3f(0, 2, 2);
 	//  End
 	glEnd();
 	//  Undo transformations
@@ -374,7 +488,7 @@ void mechDraw(double x,double y,double z,
 	glPushMatrix();
 	//  Offset
 	glTranslated(x, y, z);
-	glRotated(th, 0, 0, 1);
+	glRotated(th + 180, 0, 1, 0);
 	glScaled(dx, dy, dz);
 
 	mechFeet(1, 1, 3, 1, 1, 1, 0); // left foot
@@ -383,6 +497,7 @@ void mechDraw(double x,double y,double z,
 	mechRightLeg(4, 2, 4, 1, 1, 1, 0); // right leg
 	mechTurrent(1, 7, 3, 1, 1, 1, 0); // left turrent
 	mechTurrent(4, 7, 3, 1, 1, 1, 0); // right turrent
+	mechBody(3, 4, 1, 1, 1, 1, 0); // body
 
 	//  Undo transformations
 	glPopMatrix();
@@ -393,6 +508,7 @@ void mechDraw(double x,double y,double z,
 *  OpenGL (GLUT) calls this routine to display the scene
 */
 void display() {
+	int i, k;
 	const double len=1.5;  //  Length of axes
 	//  Erase the window and the depth buffer
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -413,11 +529,20 @@ void display() {
 	}
 
 	//TODO: INCLUDE DRAW MECH FUNCTION
-	mechDraw(-4, -4, -4, 1, 1, 1, 0);
+	//smaller army
+	for(i = 0; i < 10; i += 2) // spaces them in i
+		for(k = 0; k < 12; k += 3) // spaces them in k
+			mechDraw(i, 0, k, 0.3, 0.3, 0.3, 0); // draw small
+	// two big size ones
+	for(i = 0; i < 14; i += 7) // spaces them in k
+		mechDraw(-3, 0, i + 4, 1, 1, 1, 0); // draw big
+	//mid size one
+	for(i = 0; i < 12; i += 3) // spaces them in k
+		mechDraw(10, 0, i, 0.5, 0.5, 0.5, 270); // draw mid
+
 	//  Draw axes
 	glColor3f(1,1,1);
-	if (axes)
-	{
+	if (axes){
 		glBegin(GL_LINES);
 		glVertex3d(0.0,0.0,0.0);
 		glVertex3d(len,0.0,0.0);
@@ -446,24 +571,29 @@ void display() {
 *  GLUT calls this routine when an arrow key is pressed
 */
 void special(int key,int x,int y) {
-	//  Right arrow key - increase angle by 5 degrees
-	if (key == GLUT_KEY_RIGHT)
-		th += 5;
-	//  Left arrow key - decrease angle by 5 degrees
-	else if (key == GLUT_KEY_LEFT)
-		th -= 5;
-	//  Up arrow key - increase elevation by 5 degrees
-	else if (key == GLUT_KEY_UP)
-		ph += 5;
-	//  Down arrow key - decrease elevation by 5 degrees
-	else if (key == GLUT_KEY_DOWN)
-		ph -= 5;
-	//  PageUp key - increase dim
-	else if (key == GLUT_KEY_PAGE_UP)
-		dim += 0.1;
-	//  PageDown key - decrease dim
-	else if (key == GLUT_KEY_PAGE_DOWN && dim>1)
-		dim -= 0.1;
+
+	switch(key){
+		case GLUT_KEY_RIGHT: //  Right arrow key - increase angle by 5 degrees
+			th += 5;
+			break;
+		case GLUT_KEY_LEFT: //  Left arrow key - decrease angle by 5 degrees
+			th -= 5;
+			break;
+		case GLUT_KEY_UP: //  Up arrow key - increase elevation by 5 degrees
+			ph += 5;
+			break;
+		case GLUT_KEY_DOWN: //  Down arrow key - decrease elevation by 5 degrees
+			ph -= 5;
+			break;
+		case GLUT_KEY_PAGE_UP: //  PageUp key - increase dim
+			dim += 0.1;
+			break;
+		case GLUT_KEY_PAGE_DOWN: //  PageDown key - decrease dim
+			if(dim > 1){
+				dim -= 0.1;
+			}
+			break;
+	}
 	//  Keep angles to +/-360 degrees
 	th %= 360;
 	ph %= 360;
@@ -478,22 +608,35 @@ void special(int key,int x,int y) {
 */
 void key(unsigned char ch,int x,int y) {
 	//  Exit on ESC
-	if (ch == 27)
-		exit(0);
-	//  Reset view angle
-	else if (ch == '0')
-		th = ph = 0;
-	//  Toggle axes
-	else if (ch == 'a' || ch == 'A')
-		axes = 1-axes;
-	//  Switch display mode
-	else if (ch == 'm' || ch == 'M')
-		mode = 1-mode;
-	//  Change field of view angle
-	else if (ch == '-' && ch>1)
-		fov--;
-	else if (ch == '+' && ch<179)
-		fov++;
+
+	switch(ch){
+		case 27:
+			exit(0);
+			break;
+		case '0': // reset view angle
+			th = ph = 0;
+			break;
+		case 'A': //  Toggle axes
+		case 'a': //  Toggle axes
+			axes = 1-axes;
+			break;
+		case 'm': //  Switch display mode
+		case 'M': //  Switch display mode
+			mode = 1-mode;
+			break;
+		case '-':
+			if(ch > 1){
+				fov--;
+			}
+			break;
+		case '+':
+			if(ch < 179){
+				fov ++;
+			}
+			break;
+		default:
+			break;
+	}
 	//  Reproject
 	Project();
 	//  Tell GLUT it is necessary to redisplay the scene
@@ -503,13 +646,22 @@ void key(unsigned char ch,int x,int y) {
 /*
 *  GLUT calls this routine when the window is resized
 */
-void reshape(int width,int height) {
+void reshape(int width,int height){
 	//  Ratio of the width to the height of the window
 	asp = (height>0) ? (double)width/height : 1;
 	//  Set the viewport to the entire window
 	glViewport(0,0, width,height);
 	//  Set projection
 	Project();
+}
+
+/*
+ *  GLUT calls this toutine when there is nothing else to do
+ */
+void idle(){
+   double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
+   zh = fmod(90*t,360);
+   glutPostRedisplay();
 }
 
 /*
@@ -520,12 +672,18 @@ int main(int argc,char* argv[]){
 	glutInit(&argc,argv);
 	//  Request double buffered, true color window with Z buffering at 600x600
 	glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
-	glutInitWindowSize(600,600);
-	glutCreateWindow("Projections");
-	//  Set callbacks
+	glutInitWindowSize(600, 600);
+	//  Create the window
+	glutCreateWindow("Jason Lubrano hw3");
+	//  Tell GLUT to call "idle" when there is nothing else to do
+	glutIdleFunc(idle);
+	//  Tell GLUT to call "display" when the scene should be drawn
 	glutDisplayFunc(display);
+	//  Tell GLUT to call "reshape" when the window is resized
 	glutReshapeFunc(reshape);
+	//  Tell GLUT to call "special" when an arrow key is pressed
 	glutSpecialFunc(special);
+	//  Tell GLUT to call "key" when a key is pressed
 	glutKeyboardFunc(key);
 	//  Pass control to GLUT so it can interact with the user
 	glutMainLoop();

@@ -1,15 +1,17 @@
-ex9: Projections
+hw3: Projections
 
-Willem A. (Vlakkies) Schreuder
+Jason Lubrano
 CSCI4229/5229 Fall 2018
 
-Draw 27 cubes to demonstrate orthogonal & prespective projections
+Draw a mech army
+demonstrate orthogonal & prespective projections
+demonstrate various scaling, rotation, and translations for multiple mechs
 
 Key bindings
-  m          Toggle between perspective and orthogonal
-  +/-        Changes field of view for perspective
-  a          Toggle axes
-  arrows     Change view angle
-  PgDn/PgUp  Zoom in and out
-  0          Reset view angle
-  ESC        Exit
+	m/M 		Toggle between perspective and orthogonal
+	+/- 		Changes field of view for perspective
+	a/A 		Toggle axes
+	arrows 		Change view angle
+	PgDn/PgUp 	Zoom in and out
+	0 			Reset view angle
+	ESC 		Exit

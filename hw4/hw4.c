@@ -20,16 +20,20 @@
 /* create a mech warrior */
 
 // global vars
-int axes = 1;			//  Display axes
 int mode = 0; 			//  Projection mode
 int th = 0;				//  Azimuth of view angle
 int ph = 0;				//  Elevation of view angle
 int fov = 55;			//  Field of view (for perspective)
 double asp = 1;			//  Aspect ratio
-static double dim = 20; //  Size of world
-int turn = 1;			//	Turns the view of the world
+double dim = 25; 		//  Size of world
+int turn = 0;			//	Turns the view of the world
 static GLfloat spin = 0.0;
 static int viewMech = 1;
+
+/* First person Views */
+int fpV = 0, fpA = 0; // first person vie-2, angle
+double eyeX = 0, eyeY = 0, eyeZ = 40; // eye level, start back a bit
+double camX = 0, camY = 0, camZ = 50; // camera for second
 
 /*
 *  Convenience routine to output raster text
@@ -58,11 +62,14 @@ static void Project() {
 	//  Undo previous transformations
 	glLoadIdentity();
 	//  Perspective transformation
-	if (mode)
+	//  Perspective - set eye position
+	if(mode){
+		//  Perspective - set eye position
 		gluPerspective(fov,asp,dim/4,4*dim);
-	//  Orthogonal projection
-	else
+	} else {
+		//  Orthogonal - set world orientation
 		glOrtho(-asp*dim,+asp*dim, -dim,+dim, -dim,+dim);
+	}
 	//  Switch to manipulating the model matrix
 	glMatrixMode(GL_MODELVIEW);
 	//  Undo previous transformations
@@ -661,36 +668,41 @@ void draw_mech1(double x, double y, double z, double dx, double dy, double dz, d
 	glPopMatrix();
 }
 
-/*****************************************************************************************************************************************************/
-/*****************************************************************************************************************************************************/
-/*****************************************************************************************************************************************************/
-/*****************************************************************************************************************************************************/
-/*****************************************************************************************************************************************************/
-/*****************************************************************************************************************************************************/
-/*****************************************************************************************************************************************************/
-
 /*
 *  OpenGL (GLUT) calls this routine to display the scene
 */
 void display() {
-	const double len=1.5;  //  Length of axes
+	//const double len = 1.5;  //  Length of axes
 	//  Erase the window and the depth buffer
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	//  Enable Z-buffering in OpenGL
 	glEnable(GL_DEPTH_TEST);
 	//  Undo previous transformations
 	glLoadIdentity();
-	//  Perspective - set eye position
-	if (mode) {
-		double Ex = -2*dim*Sin(th)*Cos(ph);
-		double Ey = +2*dim        *Sin(ph);
-		double Ez = +2*dim*Cos(th)*Cos(ph);
-		gluLookAt(Ex, Ey, Ez, 0, 0, 0, 0, Cos(ph), 0);
+
+    if(fpV){
+        camX = +1.5 * dim * Sin(fpA);
+        camZ = -1.5 * dim * Cos(fpA);
+        gluLookAt(eyeX, eyeY, eyeZ, camX * eyeX, eyeY, camZ + eyeZ, 0, 1, 0);
+        glWindowPos2i(5,20);
+        //Print('First Person: %s Viewing Angle: %d',fp?"On":"Off", fpangle);
+        //Print("First Person: %s Viewing angle: %d, %d, %d",fp?"On":"Off", fpangle, Cx, Cz);
 	} else {
+		if(mode)//  Perspective - set eye position
+		{
+			eyeX = -2*dim*Sin(th)*Cos(ph);
+			eyeY = +2*dim*Sin(ph);
+			eyeZ = +2*dim*Cos(th)*Cos(ph);
+			gluLookAt(eyeX, eyeY, eyeZ, 0, 0, 0, 0, Cos(ph), 0);
+		}
 		//  Orthogonal - set world orientation
-		glRotatef(ph,1,0,0);
-		glRotatef(th,0,1,0);
+		else
+		{
+			glRotatef(ph,1,0,0);
+			glRotatef(th,0,1,0);
+		}
 	}
+
 
 
 	int i = 0, j = 0;
@@ -710,37 +722,17 @@ void display() {
 		case 2:
 			glPushMatrix();
 				if(turn) glRotatef(spin, 0, 1, 0);
-				draw_mech1(0, 0, 0, 3, 3, 3, 0); // draws the big mech
+				draw_mech1(0, 0, 0, 1, 1, 1, 0); // draws the big mech
 			glPopMatrix();
 			break;
 		default:
 			break;
 	}
 
-
-	//  Draw axes
-	glColor3f(1,1,1);
-	if (axes){
-		glBegin(GL_LINES);
-		glVertex3d(0.0,0.0,0.0);
-		glVertex3d(len,0.0,0.0);
-		glVertex3d(0.0,0.0,0.0);
-		glVertex3d(0.0,len,0.0);
-		glVertex3d(0.0,0.0,0.0);
-		glVertex3d(0.0,0.0,len);
-		glEnd();
-		//  Label axes
-		glRasterPos3d(len,0.0,0.0);
-		Print("X");
-		glRasterPos3d(0.0,len,0.0);
-		Print("Y");
-		glRasterPos3d(0.0,0.0,len);
-		Print("Z");
-	}
-
 	//  Display prarameters
 	glWindowPos2i(5,5);
-	Print("Angle=%d,%d  Dim=%.1f FOV=%d Projection=%s\n", th, ph, dim, fov, mode?"Perpective":"Orthogonal");
+	if (fpV) Print("fpV: %s VA: %d %d %d", fpV?"ON":"OFF", fpA, camX, camZ, camY);
+	else  Print("Angle: %d,%d  Dim: %.1f FOV: %d Projection: %s\n",th, ph, dim, fov, mode?"Perpective":"Orthogonal");
 	Print("Spin = %0.2f", spin);
 	//  Render the scene and make it visible
 	glFlush();
@@ -788,7 +780,6 @@ void special(int key, int x, int y) {
 */
 void key(unsigned char ch,int x,int y) {
 	//  Exit on ESC
-
 	switch(ch){
 		case 27:
 			exit(0);
@@ -796,13 +787,43 @@ void key(unsigned char ch,int x,int y) {
 		case '0': // reset view angle
 			th = ph = 0;
 			break;
-		case 'A': //  Toggle axes
-		case 'a': //  Toggle axes
-			axes = (axes + 1) % 2; // fixes the axes problem
+		case 'F': // toggels first person
+		case 'f': // toggles first person
+			fpV = 1 - fpV;
+			break;
+		case 'W': // first person move forward
+		case 'w': // first person move forward
+			if(fpV){
+				eyeX += camX * .02;
+				eyeZ += camZ * .02;
+			}
+			break;
+		case 'S': // first person move backward
+		case 's': // first person move backward
+			if(fpV){	
+				eyeX -= camX * .02;
+				eyeZ -= camZ * .02;
+			}
+			break;
+		case 'A': // first person move left
+		case 'a': // first person move left
+			if(fpV) fpA -= 1;
+			break;
+		case 'D': // first person move right
+		case 'd': // first person move right
+			if(fpV) fpA += 1;
+			break;
+		case 'q':
+		case 'Q':
+			if(fpV) eyeY -= 0.05;
+			break;
+		case 'e':
+		case 'E':
+			if(fpV) eyeY += 0.05;
 			break;
 		case 'm': //  Switch display mode
 		case 'M': //  Switch display mode
-			mode = 1-mode;
+			mode = 1 - mode;
 			break;
 		case '-':
 			if(ch > 1){
@@ -820,14 +841,25 @@ void key(unsigned char ch,int x,int y) {
 		case '2':
 			viewMech = 2;
 			break;
+		case '8':
+			eyeX = 0; //Eye pos
+			eyeY = 0;
+			eyeZ = 20;
+			camX = 0; //camera pos
+			camZ = 25;
+			fpA = 0;
+			break;
 		case '9':
 			turn = (turn + 1) % 2; // fixes turn
 			break;
 		default:
 			break;
 	}
+
+	fpA = fpA % 360;
 	//  Reproject
 	Project();
+    glutPostRedisplay();
 	//  Tell GLUT it is necessary to redisplay the scene
 	glutPostRedisplay();
 }
@@ -864,7 +896,7 @@ int main(int argc,char* argv[]){
 	//  Request double buffered, true color window with Z buffering at 600x600
 	glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
 	glutInitWindowSize(600, 600);
-	glutCreateWindow("mech drawings");
+	glutCreateWindow("Jason Lurbano hw4");
 	//  Set callbacks
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);

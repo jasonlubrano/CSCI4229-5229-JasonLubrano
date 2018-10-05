@@ -1,0 +1,30 @@
+Jason Lubrano
+CSCI4229/5229 Fall 2018
+hw4
+
+Draw a mech army
+Draw several mechs on the screen
+Demonstrate rotation, size, and scaling
+Demonstrate perspective, orthogonal, and first person perspective
+
+Assignment time: 9 hours, it was hard to redraw everything and figure out FPP :(
+
+Key bindings
+	
+	m/M 		Toggle between perspective and orthogonal
+	f/F 		Toggle between first person on/off
+	+/- 		Changes field of view for perspective
+	w/W 		First person forwards
+	s/S 		First person backwards
+	a/A 		First person move right
+	d/D 		First person reverse
+	q/Q 		First person go lower
+	e/E 		First person go higher
+	arrows 		Change view angle
+	PgDn/PgUp	Zoom in and out
+	0 			Reset view angle
+	1 			Show the Mech army
+	2			Show the single mech
+	8 			Resets the first person view
+	9			Toggles the automatic spin
+	ESC			Exit

@@ -1,4 +1,4 @@
-# Jason Lubrano
+# Homework 4
 EXE=hw4
 
 # Main target

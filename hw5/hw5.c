@@ -11,7 +11,7 @@ int ph=0;         //  Elevation of view angle
 int fov=55;       //  Field of view (for perspective)
 int light=1;      //  Lighting
 double asp=1;     //  Aspect ratio
-double dim=10.0;   //  Size of world
+double dim=25.0;   //  Size of world
 // Light values
 int one       =   1;  // Unit value
 int distance  =   5;  // Light distance
@@ -26,8 +26,9 @@ int shininess =   0;  // Shininess (power of two)
 float shiny   =   1;  // Shininess (value)
 int zh        =  90;  // Light azimuth
 float ylight  =   0;  // Elevation of light
-
-
+double bnc = 0;
+int pis = 1;
+int spin = 0;
 
 
 /*
@@ -36,13 +37,15 @@ float ylight  =   0;  // Elevation of light
 *     dimensions (dx,dy,dz)
 *     rotated th about the y axis
 */
-static void plate_hw5(double x, double y, double z, double dx, double dy, double dz, double th){
+static void plate_hw5(double x, double y, double z, double dx, double dy, double dz, double roll, double pitch, double yaw){
 	//TO DO : draw the plate, top and bottom
 	int i, j, k;
-	float rad = 12, len = 1; // radius of the plate, length of the plate
+	float rad = 14, len = 1; // radius of the plate, length of the plate
 	glPushMatrix();
 		glTranslated(x, y, z);
-		glRotated(th, 0, 1, 0);
+		glRotated(roll, 0, 0, 1); // roll
+		glRotated(yaw, 0, 1, 0); // yaw
+		glRotated(pitch, 1, 0, 0); // pitch
 		glScaled(dx, dy, dz);
 		glBegin(GL_QUAD_STRIP);
 			for (j = 0; j <= 360; j += DEF_D) {
@@ -69,13 +72,15 @@ static void plate_hw5(double x, double y, double z, double dx, double dy, double
 }
 
 
-static void bottomLeg_hw5(double x, double y, double z, double dx, double dy, double dz, double th){
+static void bottomLeg_hw5(double x, double y, double z, double dx, double dy, double dz, double roll, double pitch, double yaw){
    //TO DO : draw the bottom part of the hydrolic leg
 	int i, j, k;
 	float rad = 0.5, len = 6; // radius of the plate, length of the plate
 	glPushMatrix();
 		glTranslated(x, y, z);
-		glRotated(th, 0, 1, 0);
+		glRotated(roll, 0, 0, 1); // roll
+		glRotated(yaw, 0, 1, 0); // yaw
+		glRotated(pitch, 1, 0, 0); // pitch
 		glScaled(dx, dy, dz);
 		glBegin(GL_QUAD_STRIP);
 			for (j = 0; j <= 360; j += DEF_D) {
@@ -101,14 +106,15 @@ static void bottomLeg_hw5(double x, double y, double z, double dx, double dy, do
 	glPopMatrix();
 }
 
-static void upperLeg_hw5(double x, double y, double z, double dx, double dy, double dz, double th){
+static void upperLeg_hw5(double x, double y, double z, double dx, double dy, double dz, double roll, double pitch, double yaw){
 	//TO DO : draw the upper part of the hydrolic leg
 	int i, j, k;
 	float rad = 0.4, len = 6; // radius of the plate, length of the plate
 	glPushMatrix();
 		glTranslated(x, y, z);
-		glRotated(th, 0, 1, 0);
-		glScaled(dx, dy, dz);
+		glRotated(roll, 0, 0, 1); // roll
+		glRotated(yaw, 0, 1, 0); // yaw
+		glRotated(pitch, 1, 0, 0); // pitch		glScaled(dx, dy, dz);
 		glBegin(GL_QUAD_STRIP);
 			for (j = 0; j <= 360; j += DEF_D) {
 				glColor3f(1.0, 0.0, 0.0);
@@ -133,58 +139,91 @@ static void upperLeg_hw5(double x, double y, double z, double dx, double dy, dou
 	glPopMatrix();
 }
 
-static void hydrolic_hw5(double x, double y, double z, double dx, double dy, double dz, double th){
-	plate_hw5(0, 0, 0, 0.5, 0.5, 0.5, th);
-	bottomLeg_hw5(0, +6, 0, 1, 1, 1, th);
-	upperLeg_hw5(0, +12, 0, 1, 1, 1, th);
-}
-
 
 /*
-*  Draw vertex in polar coordinates with normal
+*  GLUT calls this routine when the window is resized
 */
-static void Vertex(double th,double ph) {
-double x = Sin(th)*Cos(ph);
-double y = Cos(th)*Cos(ph);
-double z =         Sin(ph);
-//  For a sphere at the origin, the position
-//  and normal vectors are the same
-glNormal3d(x,y,z);
-glVertex3d(x,y,z);
+void idle(){
+	//  Elapsed time in seconds
+	double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
+	zh = fmod(90*t,360.0);
+	if(pis){
+		spin += 2;
+		if(spin > 360.0) spin = spin - 360.0;
+		bnc = 2.5*Cos(spin) - 2.5*Sin(spin);
+	}
+
+	//  Tell GLUT it is necessary to redisplay the scene
+	glutPostRedisplay();
+}
+
+static void leg_hw5(double x, double y, double z, double dx, double dy, double dz, double roll, double pitch, double yaw){
+	glPushMatrix();
+		glTranslated(x, y, z);
+		glRotated(roll, 0, 0, 1); // roll
+		glRotated(yaw, 0, 1, 0); // yaw
+		glRotated(pitch, 1, 0, 0); // pitch
+		glScaled(dx, dy, dz);
+		bottomLeg_hw5(0, -6, 0, 1, 1, 1, 0, 0, 0);
+		upperLeg_hw5(0, +2 + bnc, 0, 1, 1, 1, 0, 0, 0);
+	glPopMatrix();
+}
+
+static void hydrolic_hw5(double x, double y, double z, double dx, double dy, double dz, double roll, double pitch, double yaw){
+	plate_hw5(0, +8.5+bnc, 0, 0.5, 0.5, 0.5, 0, 0, 0); //TOP
+	leg_hw5(5, 0, 0, 1, 1, 1, 0, 0, 0);
+	leg_hw5(-5*Sin(30), 0, -5*Cos(30), 1, 1, 1, 0, 0, 0);
+	leg_hw5(-5*Sin(30), 0, 5*Cos(30), 1, 1, 1, 0, 0, 0);
+	plate_hw5(0, -12.5, 0, 0.5, 0.5, 0.5, 0, 0, 0); // BASE DOES
 }
 
 /*
-*  Draw a ball
-*     at (x,y,z)
-*     radius (r)
-*/
-static void ball(double x,double y,double z,double r) {
-int th,ph;
-float yellow[] = {1.0,1.0,0.0,1.0};
-float Emission[]  = {0.0,0.0,0.01*emission,1.0};
-//  Save transformation
-glPushMatrix();
-//  Offset, scale and rotate
-glTranslated(x,y,z);
-glScaled(r,r,r);
-//  White ball
-glColor3f(1,1,1);
-glMaterialf(GL_FRONT,GL_SHININESS,shiny);
-glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
-glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
-//  Bands of latitude
-for (ph=-90;ph<90;ph+=inc)
+ *  Draw vertex in polar coordinates with normal
+ */
+static void Vertex(double th,double ph)
 {
-glBegin(GL_QUAD_STRIP);
-for (th=0;th<=360;th+=2*inc)
+   double x = Sin(th)*Cos(ph);
+   double y = Cos(th)*Cos(ph);
+   double z =         Sin(ph);
+   //  For a sphere at the origin, the position
+   //  and normal vectors are the same
+   glNormal3d(x,y,z);
+   glVertex3d(x,y,z);
+}
+
+/*
+ *  Draw a ball
+ *     at (x,y,z)
+ *     radius (r)
+ */
+static void ball(double x, double y,double z,double r)
 {
-Vertex(th,ph);
-Vertex(th,ph+inc);
-}
-glEnd();
-}
-//  Undo transofrmations
-glPopMatrix();
+   int th,ph;
+   float yellow[] = {1.0,1.0,0.0,1.0};
+   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+   //  Save transformation
+   glPushMatrix();
+   //  Offset, scale and rotate
+   glTranslated(x,y,z);
+   glScaled(r,r,r);
+   //  White ball
+   glColor3f(1,1,1);
+   glMaterialf(GL_FRONT,GL_SHININESS,shiny);
+   glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
+   glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
+   //  Bands of latitude
+   for (ph = -90; ph < 90; ph += inc)
+   {
+      glBegin(GL_QUAD_STRIP);
+      for (th = 0; th <= 360; th += 2*inc)
+      {
+         Vertex(th,ph);
+         Vertex(th,ph+inc);
+      }
+      glEnd();
+   }
+   //  Undo transofrmations
+   glPopMatrix();
 }
 
 /*
@@ -249,7 +288,8 @@ void display(){
 	/* scene goes here */
 	/* scene goes here */
 	/* scene goes here */
-	hydrolic_hw5(0, 0, 0, 1, 1, 1, th);
+	hydrolic_hw5(0, 0, 0, 1, 1, 1, 0, 0, 0);
+	//leg_hw5(0, 0, 0, 1, 1, 1, th);
 
 	//  Draw axes - no lighting from here on
 	glDisable(GL_LIGHTING);
@@ -287,18 +327,6 @@ void display(){
 	ErrCheck("display");
 	glFlush();
 	glutSwapBuffers();
-}
-
-/*
-*  GLUT calls this routine when the window is resized
-*/
-void idle()
-{
-//  Elapsed time in seconds
-double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
-zh = fmod(90*t,360.0);
-//  Tell GLUT it is necessary to redisplay the scene
-glutPostRedisplay();
 }
 
 /*
@@ -442,7 +470,7 @@ int main(int argc,char* argv[])
 glutInit(&argc,argv);
 //  Request double buffered, true color window with Z buffering at 600x600
 glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
-glutInitWindowSize(400,400);
+glutInitWindowSize(700,700);
 glutCreateWindow("Jason Lubrano hw5");
 //  Set callbacks
 glutDisplayFunc(display);

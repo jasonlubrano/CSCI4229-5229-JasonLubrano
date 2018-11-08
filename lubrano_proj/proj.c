@@ -1,7 +1,6 @@
 /* Jason Lubrano
  * CSCI4229 - Graphics
- * Homework 6
- * Textures */
+ * final project */
 #include "CSCIx229.h"
 #include "jason_funcs.h"
 
@@ -220,6 +219,9 @@ void key(unsigned char ch,int x,int y){
 	//  Repitition
 	else if (ch=='+') rep++;
 	else if (ch=='-' && rep>1) rep--;
+	// easy dim
+	else if (ch == 'k') dim = 10;
+	else if (ch == 'K') dim = 68.0;
 	//  Translate shininess power to value (-1 => 0)
 	shiny = shininess<0 ? 0 : pow(2.0,shininess);
 	//  Reproject
@@ -261,10 +263,10 @@ int main(int argc,char* argv[]) {
 	glutIdleFunc(idle);
 	//  Load textures
 	texture[0] 	= 	LoadTexBMP("grass.bmp"); // for outside
-	texture[1] 	= 	LoadTexBMP("illusion.bmp"); // for statue
-	texture[2] 	= 	LoadTexBMP("concrete_face.bmp"); // for statue
-	texture[3] 	= 	LoadTexBMP("concrete_edge.bmp"); // for inside
-	texture[4] 	= 	LoadTexBMP("wood.bmp"); // for floor
+	texture[1] 	= 	LoadTexBMP("illusion.bmp"); // for illusion
+	texture[2] 	= 	LoadTexBMP("concrete_face.bmp"); // for top and bottom of dome
+	texture[3] 	= 	LoadTexBMP("concrete_edge.bmp"); // for edge of dome
+	texture[4] 	= 	LoadTexBMP("field.bmp"); // for field
 	texture[5] 	= 	LoadTexBMP("wallvine.bmp"); // for outside wall
 	texture[6] 	= 	LoadTexBMP("insulation.bmp"); // for side of wall
 	texture[7] 	= 	LoadTexBMP("water.bmp"); // for water

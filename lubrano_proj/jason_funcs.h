@@ -57,28 +57,37 @@ int vpi; // view for the piston; 1 for full length, 0 for one of them
 unsigned int texture[11]; // Texture names
 
 /*
- *  Draw the skybox
- *     at (x,y,z)
- *     dimensions (dx,dy,dz)
- *     rotated th about the y axis
+ *  Skybox Funcs
  */
 void skybox_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
 /*
- *  Draw the superdome
- *     at (x,y,z)
- *     dimensions (dx,dy,dz)
- *     rotated th about the y axis
+ *	Scene Funcs
+ */
+void grassfloor_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
+void scene_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
+/*
+ *  Superdome Funcs
  */
 void superdome_proj(double x, double y, double z, double r, double d, double th);
 
 void bottomfloor_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
+void field_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
+void Vertex(int th, int ph);
+
+void topdome_proj(double x, double y, double z, double r, double th);
+
 void draw_superdome_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
-void scene_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+/*
+ *  Stands Funcs
+ */
 
-void grassfloor_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
 
 #ifdef __cplusplus
 }

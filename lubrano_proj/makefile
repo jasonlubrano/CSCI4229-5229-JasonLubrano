@@ -35,13 +35,14 @@ object.o: object.c CSCIx229.h
 #jason_funcs
 skybox_proj_func.o: skybox_proj_func.c jason_funcs.h
 superdome_proj_func.o: superdome_proj_func.c jason_funcs.h
+stands_proj_func.o: stands_proj_func.c jason_funcs.h
 
 #  Create archive
 CSCIx229.a:fatal.o loadtexbmp.o print.o project.o errcheck.o object.o
 	ar -rcs $@ $^
 
 # jason_funcs archive
-jason_funcs.a:skybox_proj_func.o superdome_proj_func.o
+jason_funcs.a:skybox_proj_func.o superdome_proj_func.o stands_proj_func.o
 	ar -rcs $@ $^
 
 # Compile rules

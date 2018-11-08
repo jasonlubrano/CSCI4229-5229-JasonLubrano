@@ -131,6 +131,130 @@ void bottomfloor_proj(double x, double y, double z, double dx, double dy, double
 }
 
 
+void field_proj(double x, double y, double z, double dx, double dy, double dz, double th) {
+	float wd = 1, ht = 1, dp = 1;
+	int trep = rep;
+	//  Set specular color to white
+	float white[] = {1,1,1,1};
+	float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+	glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
+	glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+	glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,Emission);
+	//  Save transformation
+	glPushMatrix();
+	//  Offset, scale and rotate
+	glTranslated(x, y, z);
+	glRotated(th, 0, 1, 0);
+	glScaled(dx, dy, dz);
+	//  Enable textures
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
+	//  exterior
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[0]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, 0, +1);
+	glTexCoord2f(0, 	rep); 	glVertex3f(-wd, +ht, +dp);
+	glTexCoord2f(rep, 	rep); 	glVertex3f(+wd, +ht, +dp);
+	glTexCoord2f(rep, 	0); 	glVertex3f(+wd, -ht, +dp);
+	glTexCoord2f(0, 	0); 	glVertex3f(-wd, -ht, +dp);
+	glEnd();
+	//  interior
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[0]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, 0, -1);
+	glTexCoord2f(0, 	rep); 	glVertex3f(-wd, +ht, -dp);
+	glTexCoord2f(rep, 	rep); 	glVertex3f(+wd, +ht, -dp);
+	glTexCoord2f(rep, 	0); 	glVertex3f(+wd, -ht, -dp);
+	glTexCoord2f(0, 	0); 	glVertex3f(-wd, -ht, -dp);
+	glEnd();
+	//  Right
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[0]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(+1, 0, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(+wd, -ht, +dp);
+	glTexCoord2f(rep, 	0); 	glVertex3f(+wd, -ht, -dp);
+	glTexCoord2f(rep, 	rep); 	glVertex3f(+wd, +ht, -dp);
+	glTexCoord2f(0, 	rep); 	glVertex3f(+wd, +ht, +dp);
+	glEnd();
+	//  Left
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[0]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(-1, 0, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(-wd, -ht, -dp);
+	glTexCoord2f(rep, 	0); 	glVertex3f(-wd, -ht, +dp);
+	glTexCoord2f(rep, 	rep); 	glVertex3f(-wd, +ht, +dp);
+	glTexCoord2f(0, 	rep); 	glVertex3f(-wd, +ht, -dp);
+	glEnd();
+	//  Top
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[4]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, +1, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(-wd, +ht, +dp);
+	glTexCoord2f(trep, 	0); 	glVertex3f(+wd, +ht, +dp);
+	glTexCoord2f(trep, 	trep); 	glVertex3f(+wd, +ht, -dp);
+	glTexCoord2f(0, 	trep); 	glVertex3f(-wd, +ht, -dp);
+	glEnd();
+	//  Bottom
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[0]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, -1, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(-wd, -ht, -dp);
+	glTexCoord2f(trep, 	0); 	glVertex3f(+wd, -ht, -dp);
+	glTexCoord2f(trep, 	trep); 	glVertex3f(+wd, -ht, +dp);
+	glTexCoord2f(0, 	trep); 	glVertex3f(-wd, -ht, +dp);
+	glEnd();
+	//  Undo transformations and textures
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+}
+
+/*
+ *  Draw vertex in polar coordinates
+ */
+void Vertex(int th,int ph)
+{
+   double x = -Sin(th)*Cos(ph);
+   double y =  Cos(th)*Cos(ph);
+   double z =          Sin(ph);
+   glNormal3d(x,y,z);
+   glTexCoord2d(th/360.0,ph/180.0+0.5);
+   glVertex3d(x,y,z);
+}
+
+
+void topdome_proj(double x, double y, double z, double r, double th){
+	int th2, ph;
+	//  Set specular color to white
+	float white[] = {1,1,1,1};
+	float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+	glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
+	glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+	glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,Emission);
+	//  Save transformation
+	glPushMatrix();
+	//  Offset, scale and rotate
+	glTranslated(x, y, z);
+	glRotated(th, 0, 1, 0);
+	glScaled(r, r, r);
+	//  Set texture
+	glEnable(GL_TEXTURE_2D);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[2]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	//  Latitude bands
+	glColor3f(1,1,1);
+	for (ph=-90; ph<90; ph+=5){
+		glBegin(GL_QUAD_STRIP);
+		for (th2=0; th2<=180; th2+=5){
+			Vertex(th, ph);
+			Vertex(th, ph+5);
+		}
+		glEnd();
+	}
+	//  Undo transformations and textures
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+}
+
+
 void draw_superdome_proj(double x, double y, double z, double dx, double dy, double dz, double th){
 	glPushMatrix();
 	//  Offset, scale and rotate
@@ -139,5 +263,7 @@ void draw_superdome_proj(double x, double y, double z, double dx, double dy, dou
 	glScaled(dx, dy, dz);
 	superdome_proj(0, 4.1, 0, 50, 10, 90);
 	bottomfloor_proj(0, -10, 0, 52, 4, 52, 90);
+	field_proj(0, -5, 0, 22.5, 1, 10, 90);
+	topdome_proj(0, 20, 0, 20, 0);
 	glPopMatrix();
 }

@@ -1,0 +1,25 @@
+Hw3: Projections
+
+Jason Lubrano
+CSCI4229/5229 Fall 2018
+
+Draw a mech army
+Draw several mechs on the screen
+Demonstrate rotation, size, and scaling
+
+Key bindings
+	1			Draws small camo mech
+	2			Draws medium mech
+	3			Draws biggest mech
+	4			Draws mech army (default)
+	9			Toggles whether we rotate or not
+	m/M 		Toggle between perspective and orthogonal
+	+/- 		Changes field of view for perspective
+	a/A 		Toggle axes
+	arrows 		Change view angle
+	PgDn/PgUp	Zoom in and out
+	0 			Reset view angle
+	ESC			Exit
+
+
+Time Taken: 8 hours

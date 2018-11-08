@@ -1,0 +1,44 @@
+ex13: Lighting
+
+Jason Lubrano
+CSCI4229/5229 Fall 2018
+
+Demonstrates basic lighting using a piston
+
+This project took around 8 hours
+	- Finding the norms for a cylinder was hard
+	- nobody had a simple formula
+	- i tried a thousand things, i finally got it
+
+I created this because I wanted to demonstrate how light affects
+	multiple objects. The piston will rise and fall.
+	This changes the distance in the Y axis.
+	I chose round objects because I wanted to show how light goes around the objects, trough the objects, etc.
+
+
+Key bindings
+l 					Toggles lighting
+a/A        	Decrease/increase ambient light
+d/D         Decrease/increase diffuse light
+s/S        	Decrease/increase specular light
+e/E        	Decrease/increase emitted light
+n/N        	Decrease/increase shininess
+F1         	Toggle smooth/flat shading
+F2         	Toggle local viewer mode
+F3         	Toggle light distance (1/5)
+F8         	Change ball increment
+F9         	Invert bottom normal
+m          	Toggles light movement
+[]         	Lower/rise light
+p          	Toggles ortogonal/perspective projection
++/-        	Change field of view of perspective
+x          	Toggle axes
+arrows     	Change view angle
+PgDn/PgUp  	Zoom in and out
+0           Reset view angle
+1          	Shows the scene of several moving pistons
+2          	Shows a single object
+3	 					Shows the plate
+4 					Shows the bottom leg
+5 					Shows the upper leg
+ESC        	Exit

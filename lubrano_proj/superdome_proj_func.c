@@ -1,12 +1,16 @@
 #include "jason_funcs.h"
 #include "CSCIx229.h"
 
+
+int highshiny = 25;
+
 /*
  *  Draw a fountain at (x,y,z) radius r thickness 2d
  *  The resolution is fixed at 36 slices (10 degrees each)
  */
 void superdome_proj(double x, double y, double z, double r, double d, double th){
    int i,k;
+   glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,highshiny);
    glEnable(GL_TEXTURE_2D);
    //  Save transformation
    glPushMatrix();
@@ -18,7 +22,7 @@ void superdome_proj(double x, double y, double z, double r, double d, double th)
    glColor3f(1, 1, 1);
    for (i=1;i>=-1;i-=2){
       (!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[2]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
-      glNormal3f(0, 0, i);
+      glNormal3f(0, 0, -i);
       glBegin(GL_TRIANGLE_FAN);
       glTexCoord2f(0.5, 0.5);
       glVertex3f(0, 0, i);
@@ -59,7 +63,7 @@ void bottomfloor_proj(double x, double y, double z, double dx, double dy, double
 	//  Set specular color to white
 	float white[] = {1,1,1,1};
 	float Emission[]  = {0.0,0.0,0.01*emission,1.0};
-	glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
+	glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,highshiny);
 	glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
 	glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,Emission);
 	//  Save transformation
@@ -224,28 +228,23 @@ void Vertex(int th,int ph)
 
 void topdome_proj(double x, double y, double z, double r, double th){
 	int th2, ph;
-	//  Set specular color to white
-	float white[] = {1,1,1,1};
-	float Emission[]  = {0.0,0.0,0.01*emission,1.0};
-	glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
-	glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
-	glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,Emission);
-	//  Save transformation
 	glPushMatrix();
 	//  Offset, scale and rotate
+	glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
 	glTranslated(x, y, z);
-	glRotated(th, 0, 1, 0);
+	glRotated(th, 0, 0, 1);
 	glScaled(r, r, r);
 	//  Set texture
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, mode ? GL_REPLACE : GL_MODULATE);
 	glEnable(GL_TEXTURE_2D);
-	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[2]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[5]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
 	//  Latitude bands
 	glColor3f(1,1,1);
-	for (ph=-90; ph<90; ph+=5){
+	for (ph =- 90; ph < 90; ph += 5){
 		glBegin(GL_QUAD_STRIP);
-		for (th2=0; th2<=180; th2+=5){
-			Vertex(th, ph);
-			Vertex(th, ph+5);
+		for (th2 = 0; th2 <= 180; th2 += 5){
+			Vertex(th2, ph);
+			Vertex(th2, ph+5);
 		}
 		glEnd();
 	}
@@ -264,6 +263,6 @@ void draw_superdome_proj(double x, double y, double z, double dx, double dy, dou
 	superdome_proj(0, 4.1, 0, 50, 10, 90);
 	bottomfloor_proj(0, -10, 0, 52, 4, 52, 90);
 	field_proj(0, -5, 0, 22.5, 1, 10, 90);
-	topdome_proj(0, 20, 0, 20, 0);
+	topdome_proj(0, 14, 0, 50, -90);
 	glPopMatrix();
 }

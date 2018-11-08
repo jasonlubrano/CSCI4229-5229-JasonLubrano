@@ -25,10 +25,10 @@ Key bindings
 Textures
   texture[0]  =   grass
   texture[1]  =   illusion
-  texture[2]  =   marble
-  texture[3]  =   inside wall
+  texture[2]  =   concrete_face
+  texture[3]  =   concrete_edge
   texture[4]  =   wood
-  texture[5]  =   outside wall
+  texture[5]  =   vine wall
   texture[6]  =   insulation
   texture[7]  =   water
   texture[8]  =   edge

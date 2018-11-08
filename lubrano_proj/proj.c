@@ -28,7 +28,7 @@ int specular  =   0;  // Specular intensity (%)
 int shininess =   0;  // Shininess (power of two)
 float shiny   =   1;  // Shininess (value)
 int zh        =  90;  // Light azimuth
-float ylight  =   0;  // Elevation of light
+float ylight  =   10;  // Elevation of light
 double bnc = 0;
 int pis = 1;
 int spin = 0;
@@ -220,8 +220,9 @@ void key(unsigned char ch,int x,int y){
 	else if (ch=='+') rep++;
 	else if (ch=='-' && rep>1) rep--;
 	// easy dim
-	else if (ch == 'k') dim = 10;
-	else if (ch == 'K') dim = 68.0;
+	else if (ch == 'k'){dim = 7; distance = 10;}
+	else if (ch == 'K'){dim = 90.0; distance = 100;}
+	else if (ch == 'i'){dim = 700; distance = 700;}
 	//  Translate shininess power to value (-1 => 0)
 	shiny = shininess<0 ? 0 : pow(2.0,shininess);
 	//  Reproject
@@ -267,7 +268,7 @@ int main(int argc,char* argv[]) {
 	texture[2] 	= 	LoadTexBMP("concrete_face.bmp"); // for top and bottom of dome
 	texture[3] 	= 	LoadTexBMP("concrete_edge.bmp"); // for edge of dome
 	texture[4] 	= 	LoadTexBMP("field.bmp"); // for field
-	texture[5] 	= 	LoadTexBMP("wallvine.bmp"); // for outside wall
+	texture[5] 	= 	LoadTexBMP("concrete_logo.bmp"); // for dome
 	texture[6] 	= 	LoadTexBMP("insulation.bmp"); // for side of wall
 	texture[7] 	= 	LoadTexBMP("water.bmp"); // for water
 	texture[8] 	= 	LoadTexBMP("edge.bmp"); // for edge of fountain

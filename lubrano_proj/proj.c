@@ -7,12 +7,12 @@
 int axes=1;       //  Display axes
 int mode=1;       //  Projection mode
 int move=1;       //  Move light
-int th=45;         //  Azimuth of view angle
+int th=270;         //  Azimuth of view angle
 int ph=30;         //  Elevation of view angle
 int fov=55;       //  Field of view (for perspective)
 int light=1;      //  Lighting
 double asp=1;     //  Aspect ratio
-double dim=68.0;   //  Size of world
+double dim=100.0;   //  Size of world
 // Light values
 int ntex = 0;
 int rep = 1;
@@ -30,11 +30,12 @@ float shiny   =   1;  // Shininess (value)
 int zh        =  90;  // Light azimuth
 float ylight  =   10;  // Elevation of light
 double bnc = 0;
+int print = 1;
 int pis = 1;
 int spin = 0;
 int vpi = 1; // view for the piston; 1 for full length, 0 for one of them
 
-unsigned int texture[11]; // Texture names
+unsigned int texture[13]; // Texture names
 
 /*
  *  Draw a ball
@@ -102,9 +103,9 @@ void display(){
 
 
 	//  Draw scene
-	skybox_proj(0, 60, 0, 1, 1, 1, 0);
+	skybox_proj(0, 140, 0, 2, 2, 2, 0);
 	draw_superdome_proj(0, 0, 0, 1, 1, 1, 0);
-
+	draw_stand1_proj(0, -4, 0, 0.25, 0.25, 0.25, 0);
 
 
 
@@ -134,13 +135,15 @@ void display(){
 	}
 	//  Display parameters
 	glWindowPos2i(5,5);
-	Print("Angle=%d,%d  Dim=%.1f Light=%s Texture=%s",th,ph,dim,light?"On":"Off",mode?"Replace":"Modulate");
-	if (light) {
-		glWindowPos2i(5,25);
-		Print("Ambient=%d  Diffuse=%d Specular=%d Emission=%d Shininess=%.0f", 
-			ambient, diffuse, specular, emission, shiny);
+	if(print){
+		Print("Angle=%d,%d  Dim=%.1f Light=%s Texture=%s",th,ph,dim,light?"On":"Off",mode?"Replace":"Modulate");
+		if (light) {
+			glWindowPos2i(5,25);
+			Print("Ambient=%d  Diffuse=%d Specular=%d Emission=%d Shininess=%.0f", 
+				ambient, diffuse, specular, emission, shiny);
+		}
+		//  Render the scene and make it visible
 	}
-	//  Render the scene and make it visible
 	ErrCheck("display");
 	glFlush();
 	glutSwapBuffers();
@@ -216,13 +219,15 @@ void key(unsigned char ch,int x,int y){
 	//  Shininess level
 	else if (ch=='n' && shininess>-1) shininess -= 1;
 	else if (ch=='N' && shininess<7) shininess += 1;
+	else if (ch=='p') print = 1-print;
 	//  Repitition
 	else if (ch=='+') rep++;
 	else if (ch=='-' && rep>1) rep--;
 	// easy dim
-	else if (ch == 'k'){dim = 7; distance = 10;}
-	else if (ch == 'K'){dim = 90.0; distance = 100;}
-	else if (ch == 'i'){dim = 700; distance = 700;}
+	else if (ch == 'k'){dim = 28.3; th = 270; ph = 30; distance = 2; mode = 0;
+		ambient = 0; diffuse = 100; specular = 0; emission = 0;shininess = 7;}
+	else if (ch == 'K'){dim = 100.0; th = 270; ph = 30; distance = 100;}
+	else if (ch == 'i'){dim = 1000; th = 0; ph = 90; distance = 700;}
 	//  Translate shininess power to value (-1 => 0)
 	shiny = shininess<0 ? 0 : pow(2.0,shininess);
 	//  Reproject
@@ -269,11 +274,13 @@ int main(int argc,char* argv[]) {
 	texture[3] 	= 	LoadTexBMP("concrete_edge.bmp"); // for edge of dome
 	texture[4] 	= 	LoadTexBMP("field.bmp"); // for field
 	texture[5] 	= 	LoadTexBMP("concrete_logo.bmp"); // for dome
-	texture[6] 	= 	LoadTexBMP("insulation.bmp"); // for side of wall
+	texture[6] 	= 	LoadTexBMP("floor.bmp"); // going to be black
 	texture[7] 	= 	LoadTexBMP("water.bmp"); // for water
 	texture[8] 	= 	LoadTexBMP("edge.bmp"); // for edge of fountain
 	texture[9] 	= 	LoadTexBMP("swamp.bmp"); // for outside box
 	texture[10]	= 	LoadTexBMP("look.bmp"); // sky
+	texture[11] = 	LoadTexBMP("leather.bmp"); // leather for the seats
+	texture[12] = 	LoadTexBMP("canvas.bmp"); // seating material
 	//  Pass control to GLUT so it can interact with the user
 	ErrCheck("init");
 	glutMainLoop();

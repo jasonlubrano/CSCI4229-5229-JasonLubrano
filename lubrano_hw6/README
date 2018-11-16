@@ -1,0 +1,36 @@
+hw6: Textures and Lighting
+
+Jason Lubrano
+CSCI4229/5229 Fall 2018
+
+Demonstrates using lighting and textures.
+
+Key bindings
+  l           Toggle lighting on/off
+  t           Change texture to illusion
+  m           Toggles texture mode modulate/replace
+  a/A         decrease/increase ambient light
+  d/D         decrease/increase diffuse light
+  s/S         decrease/increase specular light
+  e/E         decrease/increase emitted light
+  n/N         Decrease/increase shininess
+  []          Lower/rise light
+  x           Toggle axes
+  arrows      Change view angle
+  PgDn/PgUp   Zoom in and out
+  0           Reset view angle
+  +/-         Increase/Decrease repetition of textures
+  ESC         Exit
+
+Textures
+  texture[0]  =   grass
+  texture[1]  =   illusion
+  texture[2]  =   marble
+  texture[3]  =   inside wall
+  texture[4]  =   wood
+  texture[5]  =   outside wall
+  texture[6]  =   insulation
+  texture[7]  =   water
+  texture[8]  =   edge
+  texture[9]  =   swamp
+  texture[10] =   ** Set angle 0,90 and then increase dim (zoom out)

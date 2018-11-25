@@ -4,7 +4,7 @@
 #include "CSCIx229.h"
 #include "jason_funcs.h"
 
-int axes=1;       //  Display axes
+int axes=0;       //  Display axes
 int mode=1;       //  Projection mode
 int move=1;       //  Move light
 int th=270;         //  Azimuth of view angle
@@ -30,12 +30,13 @@ float shiny   =   1;  // Shininess (value)
 int zh        =  90;  // Light azimuth
 float ylight  =   10;  // Elevation of light
 double bnc = 0;
-int print = 1;
+int print = 0;
 int pis = 1;
 int spin = 0;
 int vpi = 1; // view for the piston; 1 for full length, 0 for one of them
+int disp = 0;
 
-unsigned int texture[17]; // Texture names
+unsigned int texture[24]; // Texture names
 
 /*
  *  Draw a ball
@@ -101,13 +102,30 @@ void display(){
 	} else
 		glDisable(GL_LIGHTING);
 
-
-	//  Draw scene
-	skybox_proj(0, 140, 0, 2, 2, 2, 0);
-	draw_superdome_proj(0, 0, 0, 1, 1, 1, 0);
-	draw_stand1_proj(0, -4, 0, 0.25, 0.25, 0.25, 0);
-	draw_scene_proj(200, 0, 200, 1, 1, 1, 0);
-
+	switch(disp){
+		case 0:
+			skybox_proj(0, 140, 0, 2, 2, 2, 0);
+			draw_superdome_proj(0, 0, 0, 1, 1, 1, 0);
+			draw_stand1_proj(0, -4, 0, 0.25, 0.25, 0.25, 0);
+			draw_scene_proj(0, 20, 0, 1, 1, 1, 0);
+			break;
+		case 1:
+			skybox_proj(0, 0, 0, 1, 1, 1, 0);
+			break;
+		case 2: 
+			draw_superdome_proj(0, 0, 0, 1, 1, 1, 0);
+			break;
+		case 3:
+			draw_stand0_proj(0, 0, 0, 1, 1, 1, 0);
+			break;
+		case 4:
+			draw_stand1_proj(0, 0, 0, 0.25, 0.25, 0.25, 0);
+			break;
+		case 5:
+			draw_scene_proj(0, 0, 0, 1, 1, 1, 0);
+			break;
+		default: break;
+	}
 
 
 
@@ -170,13 +188,13 @@ void idle(){
  */
 void special(int key,int x,int y){
 	//  Right arrow key - increase angle by 5 degrees
-	if (key == GLUT_KEY_RIGHT) th += 5;
+	if (key == GLUT_KEY_RIGHT) th += 1;
 	//  Left arrow key - decrease angle by 5 degrees
-	else if (key == GLUT_KEY_LEFT) th -= 5;
+	else if (key == GLUT_KEY_LEFT) th -= 1;
 	//  Up arrow key - increase elevation by 5 degrees
-	else if (key == GLUT_KEY_UP) ph += 5;
+	else if (key == GLUT_KEY_UP) ph += 1;
 	//  Down arrow key - decrease elevation by 5 degrees
-	else if (key == GLUT_KEY_DOWN) ph -= 5;
+	else if (key == GLUT_KEY_DOWN) ph -= 1;
 	//  PageUp key - increase dim
 	else if (key == GLUT_KEY_PAGE_DOWN) dim += 1;
 	//  PageDown key - decrease dim
@@ -196,6 +214,8 @@ void special(int key,int x,int y){
 void key(unsigned char ch,int x,int y){
 	//  Exit on ESC
 	if (ch == 27) exit(0);
+	//toggle display
+	else if (ch == 'f') if(disp > 0){disp--;} else {disp = 5 - disp;}
 	//  Reset view angle
 	else if (ch == '0') th = ph = 0;
 	//  Toggle texture mode
@@ -231,8 +251,12 @@ void key(unsigned char ch,int x,int y){
 	// easy dim
 	else if (ch == 'k'){dim = 28.3; th = 270; ph = 30; distance = 2; mode = 0;
 		ambient = 0; diffuse = 100; specular = 0; emission = 0;shininess = 7; ylight = 14;}
-	else if (ch == 'K'){dim = 100.0; th = 270; ph = 30; distance = 100;}
+	else if (ch == 'K'){dim = 160.0; th = 270; ph = 30; distance = 50;}
 	else if (ch == 'i'){dim = 1250; th = 0; ph = 90; distance = 700;}
+	else if (ch == 'I'){dim = 5; th = 270; ph = 30; distance = 2; mode = 0; 
+		ambient = 0; diffuse = 100; specular = 0; emission = 0;shininess = 7; ylight = 14;}
+	else if (ch == 'o'){dim = 390; th = -90; ph = 10; distance = 50; mode = 0;
+		ambient = bnc; diffuse = 100; specular = 0; emission = 0;shininess = 7; ylight = 14;}
 	//  Translate shininess power to value (-1 => 0)
 	shiny = shininess<0 ? 0 : pow(2.0,shininess);
 	//  Reprojectmake
@@ -289,7 +313,14 @@ int main(int argc,char* argv[]) {
 	texture[13] =	LoadTexBMP("td_drew.bmp"); // drew td jumbotron
 	texture[14] =	LoadTexBMP("td_kamara.bmp"); // kamara td jumbotron
 	texture[15] =	LoadTexBMP("td_whodat.bmp"); // whodat nation jumbotron
-	texture[16] = 	LoadTexBMP("woodwall.bmp"); // wood wall for shack
+	texture[16] = 	LoadTexBMP("office1.bmp"); // office building
+	texture[17] = 	LoadTexBMP("office2.bmp"); // office building
+	texture[18] = 	LoadTexBMP("office3.bmp"); // office building
+	texture[19] = 	LoadTexBMP("office4.bmp"); // office building
+	texture[20] = 	LoadTexBMP("apt1.bmp"); // apartment building
+	texture[21] = 	LoadTexBMP("apt2.bmp"); // apartment building
+	texture[22] = 	LoadTexBMP("apt3.bmp"); // apartment building
+	texture[23] = 	LoadTexBMP("wall.bmp"); // wall tx that is use for roof of building
 	//  Pass control to GLUT so it can interact with the user
 	ErrCheck("init");
 	glutMainLoop();

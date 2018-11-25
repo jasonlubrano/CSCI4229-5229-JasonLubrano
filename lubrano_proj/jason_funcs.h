@@ -54,7 +54,7 @@ int pis;
 int spin;
 int vpi; // view for the piston; 1 for full length, 0 for one of them
 
-unsigned int texture[17]; // Texture names
+unsigned int texture[24]; // Texture names
 
 /*
  *  Skybox Funcs
@@ -69,13 +69,21 @@ void draw_scene_proj(double x, double y, double z, double dx, double dy, double 
 
 void fountain_proj(double x, double y, double z, double r, double d, double th);
 
-void grassfloor_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+void draw_fountain_proj(double x, double y, double z, double r, double d, double th);
 
-void woodfloor_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+void bldg_apt1_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
-void corner_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+void bldg_apt2_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
-void wall_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+void bldg_apt3_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
+void bldg_office1_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
+void bldg_office2_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
+void bldg_office3_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
+void bldg_office4_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
 /*
  *  Superdome Funcs

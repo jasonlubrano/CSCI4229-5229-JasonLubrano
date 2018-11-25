@@ -1,4 +1,4 @@
-hw6: Textures and Lighting
+FINAL PROJECT: NEW ORLEANS
 
 Jason Lubrano
 CSCI4229/5229 Fall 2018
@@ -6,6 +6,7 @@ CSCI4229/5229 Fall 2018
 Demonstrates using lighting and textures.
 
 Key bindings
+  f           Toggle scene/item to display
   l           Toggle lighting on/off
   t           Change texture to illusion
   m           Toggles texture mode modulate/replace
@@ -20,6 +21,12 @@ Key bindings
   PgDn/PgUp   Zoom in and out
   0           Reset view angle
   +/-         Increase/Decrease repetition of textures
+  p           Toggle print messages
+  o           Observer mode to the city of new orleans
+  k           See inside the super dome
+  K           Close up to the superdome (outside)
+  i           see the entire skybox
+  I           up close to single object
   ESC         Exit
 
 Textures
@@ -27,10 +34,33 @@ Textures
   texture[1]  =   illusion
   texture[2]  =   concrete_face
   texture[3]  =   concrete_edge
-  texture[4]  =   wood
-  texture[5]  =   vine wall
-  texture[6]  =   insulation
+  texture[4]  =   field
+  texture[5]  =   concrete_logo
+  texture[6]  =   floor
   texture[7]  =   water
-  texture[8]  =   edge
+  texture[8]  =   edge of fountain
   texture[9]  =   swamp
   texture[10] =   ** Set angle 0,90 and then increase dim (zoom out)
+  texture[11] =   leather for seats
+  texture[12] =   canvas for seating
+  texture[13] =   drew brees jumbotron screen
+  texture[14] =   kamara jumbotron screen
+  texture[15] =   who dat jumbotron screen
+  texture[16] =   office building 1
+  texture[17] =   office building 2
+  texture[18] =   office building 3
+  texture[19] =   office building 4
+  texture[20] =   apartment building 1
+  texture[21] =   apartment building 2
+  texture[22] =   apartment building 3
+  texture[23] =   roof for apartment
+
+Files
+  skybox_proj_func.c
+  superdome_proj_func.c
+  stands_proj_func.c
+  scene_proj_func.c
+  jason_funcs.h
+  proj.c
+  makefile
+  README

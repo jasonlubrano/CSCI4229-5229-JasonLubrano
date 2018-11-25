@@ -262,6 +262,84 @@ void field_proj(double x, double y, double z, double dx, double dy, double dz, d
 	glDisable(GL_TEXTURE_2D);
 }
 
+void jumbotron_proj(double x, double y, double z, double dx, double dy, double dz, double th) {
+	float wd = 1, ht = 1, dp = 1, wdht = 1.25;
+	int trep = rep;
+	//  Set specular color to white
+	float white[] = {1,1,1,1};
+	float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+	glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
+	glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+	glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,Emission);
+	//  Save transformation
+	glPushMatrix();
+	//  Offset, scale and rotate
+	glTranslated(x, y, z);
+	glRotated(th, 0, 1, 0);
+	glScaled(dx, dy, dz);
+	//  Enable textures
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
+	//  exterior
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[13]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, 0, -1);
+	glTexCoord2f(0, 	rep); 	glVertex3f(-wdht, +ht, +dp);
+	glTexCoord2f(rep, 	rep); 	glVertex3f(+wdht, +ht, +dp);
+	glTexCoord2f(rep, 	0); 	glVertex3f(+wd, -ht, +dp);
+	glTexCoord2f(0, 	0); 	glVertex3f(-wd, -ht, +dp);
+	glEnd();
+	//  interior
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[14]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, 0, +1);
+	glTexCoord2f(0, 	rep); 	glVertex3f(-wdht, +ht, -dp);
+	glTexCoord2f(rep, 	rep); 	glVertex3f(+wdht, +ht, -dp);
+	glTexCoord2f(rep, 	0); 	glVertex3f(+wd, -ht, -dp);
+	glTexCoord2f(0, 	0); 	glVertex3f(-wd, -ht, -dp);
+	glEnd();
+	//  Right
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[15]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(-1, 0, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(+wd, -ht, +dp);
+	glTexCoord2f(rep, 	0); 	glVertex3f(+wd, -ht, -dp);
+	glTexCoord2f(rep, 	rep); 	glVertex3f(+wdht, +ht, -dp);
+	glTexCoord2f(0, 	rep); 	glVertex3f(+wdht, +ht, +dp);
+	glEnd();
+	//  Left
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[15]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(+1, 0, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(-wd, -ht, -dp);
+	glTexCoord2f(rep, 	0); 	glVertex3f(-wd, -ht, +dp);
+	glTexCoord2f(rep, 	rep); 	glVertex3f(-wdht, +ht, +dp);
+	glTexCoord2f(0, 	rep); 	glVertex3f(-wdht, +ht, -dp);
+	glEnd();
+	//  Top
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[11]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, -1, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(-wdht, +ht, +dp);
+	glTexCoord2f(trep, 	0); 	glVertex3f(+wdht, +ht, +dp);
+	glTexCoord2f(trep, 	trep); 	glVertex3f(+wdht, +ht, -dp);
+	glTexCoord2f(0, 	trep); 	glVertex3f(-wdht, +ht, -dp);
+	glEnd();
+	//  Bottom
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[11]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, +1, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(-wd, -ht, -dp);
+	glTexCoord2f(trep, 	0); 	glVertex3f(+wd, -ht, -dp);
+	glTexCoord2f(trep, 	trep); 	glVertex3f(+wd, -ht, +dp);
+	glTexCoord2f(0, 	trep); 	glVertex3f(-wd, -ht, +dp);
+	glEnd();
+	//  Undo transformations and textures
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
+}
+
+
 /*
  *  Draw vertex in polar coordinates
  */
@@ -315,5 +393,6 @@ void draw_superdome_proj(double x, double y, double z, double dx, double dy, dou
 	field_proj(0, -5, 0, 22.5, 1, 10, 90);
 	topdome_proj(0, 14, 0, 50, -90);
 	floor0_proj(0, -5.001, 0, 49, 1, 90);
+	jumbotron_proj(0, 18, 0, 5, 5, 5, spin);
 	glPopMatrix();
 }

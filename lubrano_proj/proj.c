@@ -35,7 +35,7 @@ int pis = 1;
 int spin = 0;
 int vpi = 1; // view for the piston; 1 for full length, 0 for one of them
 
-unsigned int texture[13]; // Texture names
+unsigned int texture[17]; // Texture names
 
 /*
  *  Draw a ball
@@ -156,6 +156,12 @@ void idle(){
 	//  Elapsed time in seconds
 	double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
 	zh = fmod(90*t,360.0);
+	if(pis){
+		spin += 2;
+		if(spin > 360.0) spin = spin - 360.0;
+		bnc = 2.5*Cos(spin) - 2.5*Sin(spin);
+	}
+
 	//  Tell GLUT it is necessary to redisplay the scene
 	glutPostRedisplay();
 }
@@ -225,12 +231,12 @@ void key(unsigned char ch,int x,int y){
 	else if (ch=='-' && rep>1) rep--;
 	// easy dim
 	else if (ch == 'k'){dim = 28.3; th = 270; ph = 30; distance = 2; mode = 0;
-		ambient = 0; diffuse = 100; specular = 0; emission = 0;shininess = 7;}
+		ambient = 0; diffuse = 100; specular = 0; emission = 0;shininess = 7; ylight = 14;}
 	else if (ch == 'K'){dim = 100.0; th = 270; ph = 30; distance = 100;}
-	else if (ch == 'i'){dim = 1000; th = 0; ph = 90; distance = 700;}
+	else if (ch == 'i'){dim = 1250; th = 0; ph = 90; distance = 700;}
 	//  Translate shininess power to value (-1 => 0)
 	shiny = shininess<0 ? 0 : pow(2.0,shininess);
-	//  Reproject
+	//  Reprojectmake
 	Project(45,asp,dim);
 	//  Tell GLUT it is necessary to redisplay the scene
 	glutPostRedisplay();
@@ -281,6 +287,10 @@ int main(int argc,char* argv[]) {
 	texture[10]	= 	LoadTexBMP("look.bmp"); // sky
 	texture[11] = 	LoadTexBMP("leather.bmp"); // leather for the seats
 	texture[12] = 	LoadTexBMP("canvas.bmp"); // seating material
+	texture[13] =	LoadTexBMP("td_drew.bmp"); // drew td jumbotron
+	texture[14] =	LoadTexBMP("td_kamara.bmp"); // kamara td jumbotron
+	texture[15] =	LoadTexBMP("td_whodat.bmp"); // whodat nation jumbotron
+	texture[16] = 	LoadTexBMP("woodwall.bmp"); // wood wall for shack
 	//  Pass control to GLUT so it can interact with the user
 	ErrCheck("init");
 	glutMainLoop();

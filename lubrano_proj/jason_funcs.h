@@ -54,7 +54,7 @@ int pis;
 int spin;
 int vpi; // view for the piston; 1 for full length, 0 for one of them
 
-unsigned int texture[13]; // Texture names
+unsigned int texture[17]; // Texture names
 
 /*
  *  Skybox Funcs
@@ -62,11 +62,10 @@ unsigned int texture[13]; // Texture names
 void skybox_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
 /*
- *	Scene Funcs
+ *	Shack Funcs
  */
-void grassfloor_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
-void scene_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
 
 /*
  *  Superdome Funcs
@@ -84,6 +83,8 @@ void topdome_proj(double x, double y, double z, double r, double th);
 void draw_superdome_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
 void floor0_proj(double x, double y, double z, double r, double d, double th);
+
+void jumbotron_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
 /*
  *  Stands Funcs

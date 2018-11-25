@@ -62,10 +62,20 @@ unsigned int texture[17]; // Texture names
 void skybox_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
 /*
- *	Shack Funcs
+ *	Scene Funcs
  */
 
+void draw_scene_proj(double x, double y, double z, double dx, double dy, double dz, double ro);
 
+void fountain_proj(double x, double y, double z, double r, double d, double th);
+
+void grassfloor_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
+void woodfloor_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
+void corner_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
+void wall_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
 /*
  *  Superdome Funcs

@@ -106,8 +106,7 @@ void display(){
 	skybox_proj(0, 140, 0, 2, 2, 2, 0);
 	draw_superdome_proj(0, 0, 0, 1, 1, 1, 0);
 	draw_stand1_proj(0, -4, 0, 0.25, 0.25, 0.25, 0);
-
-
+	draw_scene_proj(200, 0, 200, 1, 1, 1, 0);
 
 
 
@@ -179,9 +178,9 @@ void special(int key,int x,int y){
 	//  Down arrow key - decrease elevation by 5 degrees
 	else if (key == GLUT_KEY_DOWN) ph -= 5;
 	//  PageUp key - increase dim
-	else if (key == GLUT_KEY_PAGE_DOWN) dim += 0.1;
+	else if (key == GLUT_KEY_PAGE_DOWN) dim += 1;
 	//  PageDown key - decrease dim
-	else if (key == GLUT_KEY_PAGE_UP && dim>1) dim -= 0.1;
+	else if (key == GLUT_KEY_PAGE_UP && dim>1) dim -= 1;
 	//  Keep angles to +/-360 degrees
 	th %= 360;
 	ph %= 360;

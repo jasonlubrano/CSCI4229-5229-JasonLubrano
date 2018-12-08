@@ -24,6 +24,7 @@ void bldg_apt1_proj(double x, double y, double z, double dx, double dy, double d
 	glRotated(th, 0, 1, 0);
 	glScaled(dx, dy, dz);
 	//  Enable textures
+	glColor3f(1.0, 1.0, 1.0);
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
 	//  exterior
@@ -99,6 +100,7 @@ void bldg_apt2_proj(double x, double y, double z, double dx, double dy, double d
 	glTranslated(x, y, z);
 	glRotated(th, 0, 1, 0);
 	glScaled(dx, dy, dz);
+	glColor3f(1.0, 1.0, 1.0);
 	//  Enable textures
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
@@ -175,6 +177,7 @@ void bldg_apt3_proj(double x, double y, double z, double dx, double dy, double d
 	glTranslated(x, y, z);
 	glRotated(th, 0, 1, 0);
 	glScaled(dx, dy, dz);
+	glColor3f(1.0, 1.0, 1.0);
 	//  Enable textures
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
@@ -251,6 +254,7 @@ void bldg_off1_proj(double x, double y, double z, double dx, double dy, double d
 	glTranslated(x, y, z);
 	glRotated(th, 0, 1, 0);
 	glScaled(dx, dy, dz);
+	glColor3f(1.0, 1.0, 1.0);
 	//  Enable textures
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
@@ -327,6 +331,7 @@ void bldg_off2_proj(double x, double y, double z, double dx, double dy, double d
 	glTranslated(x, y, z);
 	glRotated(th, 0, 1, 0);
 	glScaled(dx, dy, dz);
+	glColor3f(1.0, 1.0, 1.0);
 	//  Enable textures
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
@@ -403,6 +408,7 @@ void bldg_off3_proj(double x, double y, double z, double dx, double dy, double d
 	glTranslated(x, y, z);
 	glRotated(th, 0, 1, 0);
 	glScaled(dx, dy, dz);
+	glColor3f(1.0, 1.0, 1.0);
 	//  Enable textures
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
@@ -479,6 +485,7 @@ void bldg_off4_proj(double x, double y, double z, double dx, double dy, double d
 	glTranslated(x, y, z);
 	glRotated(th, 0, 1, 0);
 	glScaled(dx, dy, dz);
+	glColor3f(1.0, 1.0, 1.0);
 	//  Enable textures
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
@@ -597,6 +604,29 @@ void draw_fountain_proj(double x, double y, double z, double r, double d, double
 	glPopMatrix();
 }
 
+
+void mississippi_river_proj(double x, double y, double z, double dx, double dy, double dz, double th){
+	int wd = 1000, ht = 1, dp = 200, trep = 4;
+	glPushMatrix();
+   	// zOffset and scale
+   	glTranslated(x, y ,z);
+   	glRotated(th, 0, 1, 0);
+  	glScaled(dx, dy, dz);
+  	glColor3f(0.0, 0.80, 0.80);
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[7]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, +1, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(-wd, +ht, +dp);
+	glTexCoord2f(trep, 	0); 	glVertex3f(+wd, +ht, +dp);
+	glTexCoord2f(trep, 	trep); 	glVertex3f(+wd, +ht, -dp);
+	glTexCoord2f(0, 	trep); 	glVertex3f(-wd, +ht, -dp);
+	glEnd();
+	glPopMatrix();
+}
+
+
 void draw_scene_proj(double x, double y, double z, double dx, double dy, double dz, double ro){
 	glPushMatrix();
 	//  Offset, scale and rotate
@@ -618,10 +648,7 @@ void draw_scene_proj(double x, double y, double z, double dx, double dy, double 
 	bldg_off3_proj(320, 0, 160, 1, 1, 1, 0);
 	bldg_off4_proj(320, 0, 320, 1, 1, 1, 0);
 	bldg_apt1_proj(320, 0, 400, 1, 1, 1, 0);
-	bldg_apt2_proj(400, 0, 80, 1, 1, 1, 0);
-	bldg_apt3_proj(400, 0, 160, 1, 1, 1, 0);
-	bldg_off1_proj(400, 0, 320, 1, 1, 1, 0);
-	bldg_off2_proj(400, 0, 400, 1, 1, 1, 0);
+
 
 	bldg_off3_proj(80, 0, -80, 1, 1, 1, 0);
 	bldg_off4_proj(80, 0, -160, 1, 1, 1, 0);
@@ -635,10 +662,7 @@ void draw_scene_proj(double x, double y, double z, double dx, double dy, double 
 	bldg_apt1_proj(320, 0, -160, 1, 1, 1, 0);
 	bldg_apt2_proj(320, 0, -320, 1, 1, 1, 0);
 	bldg_apt3_proj(320, 0, -400, 1, 1, 1, 0);
-	bldg_off1_proj(400, 0, -80, 1, 1, 1, 0);
-	bldg_off2_proj(400, 0, -160, 1, 1, 1, 0);
-	bldg_off3_proj(400, 0, -320, 1, 1, 1, 0);
-	bldg_off4_proj(400, 0, -400, 1, 1, 1, 0);
+
 	
 	bldg_apt1_proj(-80, 0, 80, 1, 1, 1, 0);
 	bldg_apt2_proj(-80, 0, 160, 1, 1, 1, 0);
@@ -651,11 +675,7 @@ void draw_scene_proj(double x, double y, double z, double dx, double dy, double 
 	bldg_apt2_proj(-320, 0, 80, 1, 1, 1, 0);
 	bldg_apt3_proj(-320, 0, 160, 1, 1, 1, 0);
 	bldg_off1_proj(-320, 0, 320, 1, 1, 1, 0);
-	bldg_off2_proj(-320, 0, 400, 1, 1, 1, 0);
-	bldg_off3_proj(-400, 0, 80, 1, 1, 1, 0);
-	bldg_off4_proj(-400, 0, 160, 1, 1, 1, 0);
-	bldg_apt1_proj(-400, 0, 320, 1, 1, 1, 0);
-	bldg_apt2_proj(-400, 0, 400, 1, 1, 1, 0);
+
 
 	bldg_apt3_proj(-80, 0, -80, 1, 1, 1, 0);
 	bldg_off1_proj(-80, 0, -160, 1, 1, 1, 0);
@@ -669,10 +689,6 @@ void draw_scene_proj(double x, double y, double z, double dx, double dy, double 
 	bldg_off2_proj(-320, 0, -160, 1, 1, 1, 0);
 	bldg_off3_proj(-320, 0, -320, 1, 1, 1, 0);
 	bldg_off4_proj(-320, 0, -400, 1, 1, 1, 0);
-	bldg_apt1_proj(-400, 0, -80, 1, 1, 1, 0);
-	bldg_apt2_proj(-400, 0, -160, 1, 1, 1, 0);
-	bldg_apt3_proj(-400, 0, -320, 1, 1, 1, 0);
-	bldg_off1_proj(-400, 0, -400, 1, 1, 1, 0);
 
 	glPopMatrix();
 }

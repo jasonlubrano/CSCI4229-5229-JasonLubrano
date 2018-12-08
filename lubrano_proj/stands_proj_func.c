@@ -354,13 +354,33 @@ void draw_stand1_proj(double x, double y, double z, double dx, double dy, double
 	glTranslated(x, y, z);
 	glRotated(th, 0, 1, 0);
 	glScaled(dx, dy, dz);
-	int r = 90, g = 0, f = 0;
-	for(f = 1; f < 100; f += 3){
-		for(g = 0; g < 360; g += 2){
-			draw_stand0_proj(r*Cos(g), f, r*Sin(g), 0.25, 0.25, 0.25, -g-90);
+	int r1 = 100, g = 0, f = 0, r2 = 50;
+	
+	// bottom floor
+	// endzone
+
+	for(f = 0; f < 10; f+=2){
+		for(g = 70; g <= 110; g += 2){
+			draw_stand0_proj(r1*Cos(g), f+1, r1*Sin(g), 0.25, 0.25, 0.25, -g-90);
 		}
-		r+= 3;
+		// endzone
+		for(g = -110; g <= -70; g += 2){
+			draw_stand0_proj(r1*Cos(g), f+1, r1*Sin(g), 0.25, 0.25, 0.25, -g-90);
+		}
+		r1 += 3;
 	}
+	
+	r2=50;
+	for(f = 0; f < 10; f+=2){
+		for(g = 0; g <= 60; g += 2){
+			draw_stand0_proj(-r2, f+1, g, 0.25, 0.25, 0.25, 90);
+			draw_stand0_proj(-r2, f+1, -g, 0.25, 0.25, 0.25, 90);
+			draw_stand0_proj(r2, f+1, g, 0.25, 0.25, 0.25, -90);
+			draw_stand0_proj(r2, f+1, -g, 0.25, 0.25, 0.25, -90);
+		}
+		r2+=3;
+	}
+
 
 	glPopMatrix();
 }

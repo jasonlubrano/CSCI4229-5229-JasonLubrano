@@ -35,6 +35,7 @@ int pis = 1;
 int spin = 0;
 int vpi = 1; // view for the piston; 1 for full length, 0 for one of them
 int disp = 0;
+int win = 0;
 
 unsigned int texture[24]; // Texture names
 
@@ -104,16 +105,26 @@ void display(){
 
 	switch(disp){
 		case 0:
+			/*outside the city*/
 			skybox_proj(0, 140, 0, 2, 2, 2, 0);
 			draw_superdome_proj(0, 0, 0, 1, 1, 1, 0);
-			draw_stand1_proj(0, -4, 0, 0.25, 0.25, 0.25, 0);
 			draw_scene_proj(0, 20, 0, 1, 1, 1, 0);
+			mississippi_river_proj(0, -10, 800, 1, 1, 1, 0);
+			mississippi_river_proj(0, -10, -800, 1, 1, 1, 0);
+			mississippi_river_proj(800, -10, 0, 1, 1, 1, 90);
+			mississippi_river_proj(-800, -10, 0, 1, 1, 1, 90);
 			break;
 		case 1:
-			skybox_proj(0, 0, 0, 1, 1, 1, 0);
+			/* draw the inside of the superdome */
+			draw_stand1_proj(0, -4, 0, 0.25, 0.25, 0.25, 0);
+			draw_superdome_proj(0, 0, 0, 1, 1, 1, 0);
 			break;
 		case 2: 
-			draw_superdome_proj(0, 0, 0, 1, 1, 1, 0);
+			skybox_proj(0, 140, 0, 2, 2, 2, 0);
+			mississippi_river_proj(0, -10, 800, 1, 1, 1, 0);
+			mississippi_river_proj(0, -10, -800, 1, 1, 1, 0);
+			mississippi_river_proj(800, -10, 0, 1, 1, 1, 90);
+			mississippi_river_proj(-800, -10, 0, 1, 1, 1, 90);
 			break;
 		case 3:
 			draw_stand0_proj(0, 0, 0, 1, 1, 1, 0);
@@ -125,6 +136,14 @@ void display(){
 			draw_scene_proj(0, 0, 0, 1, 1, 1, 0);
 			break;
 		default: break;
+	}
+
+	if(win == 1){
+		draw_firework1_proj(0, 250, 0, 40);
+	} else if (win == 2){
+		draw_firework2_proj(0, 250, 0, 40);
+	} else if (win == 3){
+		draw_firework3_proj(0, 250, 0, 40);
 	}
 
 
@@ -248,15 +267,18 @@ void key(unsigned char ch,int x,int y){
 	//  Repitition
 	else if (ch=='+') rep++;
 	else if (ch=='-' && rep>1) rep--;
+	else if (ch == 'h')if(win>0){win--;} else {win = 3 - win;}
 	// easy dim
-	else if (ch == 'k'){dim = 28.3; th = 270; ph = 30; distance = 2; mode = 0;
+	else if (ch == 'k'){disp=1; dim = 28.3; th = 270; ph = 30; distance = 2; mode = 0;
 		ambient = 0; diffuse = 100; specular = 0; emission = 0;shininess = 7; ylight = 14;}
 	else if (ch == 'K'){dim = 160.0; th = 270; ph = 30; distance = 50;}
 	else if (ch == 'i'){dim = 1250; th = 0; ph = 90; distance = 700;}
 	else if (ch == 'I'){dim = 5; th = 270; ph = 30; distance = 2; mode = 0; 
 		ambient = 0; diffuse = 100; specular = 0; emission = 0;shininess = 7; ylight = 14;}
-	else if (ch == 'o'){dim = 390; th = -90; ph = 10; distance = 50; mode = 0;
-		ambient = bnc; diffuse = 100; specular = 0; emission = 0;shininess = 7; ylight = 14;}
+	else if (ch == 'o'){disp = 0; dim = 500; th = -90; ph = 15; distance = 50; mode = 0;
+		ambient = bnc; diffuse = 100; specular = 0; emission = 0;shininess = 7; distance = 60; ylight = 220;}
+	else if (ch == 'u'){disp = 2; dim = 500; th = -90; ph = 15; distance = 50; mode = 0;
+		ambient = bnc; diffuse = 100; specular = 0; emission = 0;shininess = 7; ylight = 30;}
 	//  Translate shininess power to value (-1 => 0)
 	shiny = shininess<0 ? 0 : pow(2.0,shininess);
 	//  Reprojectmake
@@ -278,7 +300,7 @@ void reshape(int width,int height){
 }
 
 
-
+	
 
 int main(int argc,char* argv[]) {
 	//  Initialize GLUT

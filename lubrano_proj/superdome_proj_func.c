@@ -19,7 +19,7 @@ void superdome_proj(double x, double y, double z, double r, double d, double th)
    glRotated(th, 1, 0, 0);
    glScaled(r, r, d);
    //  Head & Tail
-   glColor3f(1, 1, 1);
+   glColor3f(1.0, 1.0, 1.0);
    //for (i=1;i>=-1;i-=2){
       i = 1;
       (!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[2]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
@@ -35,7 +35,7 @@ void superdome_proj(double x, double y, double z, double r, double d, double th)
    //}
    //  Edge
    (!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[3]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
-   glColor3f(1.00, 0.77, 0.36);
+   glColor3f(1.0, 1.0, 1.0);
    glBegin(GL_QUAD_STRIP);
    for (k = 0; k <= 360; k += 10) {
       glNormal3f(Cos(k),Sin(k),0);
@@ -45,7 +45,7 @@ void superdome_proj(double x, double y, double z, double r, double d, double th)
    glEnd();
    //  Edge
    (!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[3]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
-   glColor3f(1.00, 0.77, 0.36);
+   glColor3f(1.0, 1.0, 1.0);
    glBegin(GL_QUAD_STRIP);
    for (k = 0; k <= 360; k += 10) {
       glNormal3f(Cos(k),Sin(k),0);
@@ -73,6 +73,7 @@ void bottomfloor_proj(double x, double y, double z, double dx, double dy, double
 	glTranslated(x, y, z);
 	glRotated(th, 0, 1, 0);
 	glScaled(dx, dy, dz);
+
 	//  Enable textures
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);

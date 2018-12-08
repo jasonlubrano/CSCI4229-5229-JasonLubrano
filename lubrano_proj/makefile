@@ -1,5 +1,5 @@
 # final project file
-EXE=proj
+EXE=final
 
 # Main target
 all: $(EXE)
@@ -37,13 +37,14 @@ skybox_proj_func.o: skybox_proj_func.c jason_funcs.h
 superdome_proj_func.o: superdome_proj_func.c jason_funcs.h
 stands_proj_func.o: stands_proj_func.c jason_funcs.h
 scene_proj_func.o: scene_proj_func.c jason_funcs.h
+firework_proj_func.o: firework_proj_func.c jason_funcs.h
 
 #  Create archive
 CSCIx229.a:fatal.o loadtexbmp.o print.o project.o errcheck.o object.o
 	ar -rcs $@ $^
 
 # jason_funcs archive
-jason_funcs.a:skybox_proj_func.o superdome_proj_func.o stands_proj_func.o scene_proj_func.o
+jason_funcs.a:skybox_proj_func.o superdome_proj_func.o stands_proj_func.o scene_proj_func.o firework_proj_func.o
 	ar -rcs $@ $^
 
 # Compile rules
@@ -53,7 +54,7 @@ jason_funcs.a:skybox_proj_func.o superdome_proj_func.o stands_proj_func.o scene_
 	g++ -c $(CFLG) $<
 
 #  Link
-proj:proj.o CSCIx229.a jason_funcs.a
+final:final.o CSCIx229.a jason_funcs.a
 	gcc -O3 -o $@ $^   $(LIBS)
 
 #  Clean

@@ -85,6 +85,8 @@ void bldg_office3_proj(double x, double y, double z, double dx, double dy, doubl
 
 void bldg_office4_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
+void mississippi_river_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
 /*
  *  Superdome Funcs
  */
@@ -117,6 +119,23 @@ void legseat_proj(double x, double y, double z, double dx, double dy, double dz,
 void draw_stand0_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
 void draw_stand1_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
+
+/*
+ *  Fireworks Funcs
+ */
+
+void draw_firework1_proj(double x, double y, double z, double ds);
+
+void draw_firework2_proj(double x, double y, double z, double ds);
+
+void draw_firework3_proj(double x, double y, double z, double ds);
+
+void init_fireworks_proj(int pause);
+
+
+
+
 
 
 #ifdef __cplusplus

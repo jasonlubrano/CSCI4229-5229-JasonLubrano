@@ -261,7 +261,6 @@ void key(unsigned char ch,int x,int y){
 	else if (ch == '0') th = ph = 0;
 	//  Toggle texture mode
 	else if (ch == 'm' || ch == 'M') mode = 1-mode;
-	
 	//  Toggle axes
 	else if (ch == 'x' || ch == 'X') axes = 1-axes;
 	//  Toggle lighting
@@ -306,7 +305,7 @@ void key(unsigned char ch,int x,int y){
 		ambient = bnc; diffuse = 100; specular = 0; emission = 0;shininess = 7; distance = 60; ylight = 220;}
 	//view the skybox and the boat without any buildings
 	else if (ch == 'u'){disp = 2; dim = 500; th = -90; ph = 15; distance = 50; mode = 0;
-		ambient = bnc; diffuse = 100; specular = 0; emission = 0;shininess = 7; ylight = 30;}
+		ambient = bnc; diffuse = 100; specular = 25; emission = 0;shininess = 7; ylight = 30;}
 	//  Translate shininess power to value (-1 => 0)
 	shiny = shininess<0 ? 0 : pow(2.0,shininess);
 	//  Reprojectmake

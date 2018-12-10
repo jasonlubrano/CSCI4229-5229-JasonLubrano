@@ -1,33 +1,34 @@
-FINAL PROJECT: NEW ORLEANS
-
 Jason Lubrano
 CSCI4229/5229 Fall 2018
+FINAL PROJECT: NEW ORLEANS
 
-Demonstrates using lighting and textures.
 
 Key bindings
-  f           Toggle scene/item to display
-  l           Toggle lighting on/off
-  t           Change texture to illusion
-  m           Toggles texture mode modulate/replace
-  a/A         decrease/increase ambient light
-  d/D         decrease/increase diffuse light
-  s/S         decrease/increase specular light
-  e/E         decrease/increase emitted light
-  n/N         Decrease/increase shininess
-  []          Lower/rise light
-  x           Toggle axes
-  arrows      Change view angle
-  PgDn/PgUp   Zoom in and out
-  0           Reset view angle
-  +/-         Increase/Decrease repetition of textures
-  p           Toggle print messages
-  o           Observer mode to the city of new orleans
-  k           See inside the super dome
-  K           Close up to the superdome (outside)
-  i           see the entire skybox
-  I           up close to single object
-  ESC         Exit
+  f           Toggle scene/item to display.
+  l/L         Toggle lighting on/off.
+  t           toggles texture to illusion.
+  m/M         Toggles texture mode modulate/replace.
+  x/X         Toggle the Axes.
+  a/A         decrease/increase ambient light.
+  d/D         decrease/increase diffuse light.
+  s/S         decrease/increase specular light.
+  e/E         decrease/increase emitted light.
+  n/N         Decrease/increase shininess.
+  []          Lower/rise light.
+  arrows      Change view angle.
+  PgDn/PgUp   Zoom in and out.
+  0           Reset view angle.
+  +/-         Increase/Decrease repetition of textures.
+  h           Shoot some fireworks.
+  p           Toggle print messages.
+  o           Good view of the city.
+  k           See inside the super dome.
+  K           Close up to the superdome (outside).
+  i           close up of the ferry stand alone.
+  I           look at the superdome from the ground floor.
+  u           see an empty scene with a ferry.
+  ESC         Exit.
+
 
 Textures
   texture[0]  =   grass
@@ -54,13 +55,61 @@ Textures
   texture[21] =   apartment building 2
   texture[22] =   apartment building 3
   texture[23] =   roof for apartment
+  texture[24] =   wood for the deck of the ferry
+  texture[25] =   road for the city
 
-Files
-  skybox_proj_func.c
-  superdome_proj_func.c
-  stands_proj_func.c
-  scene_proj_func.c
-  jason_funcs.h
-  proj.c
-  makefile
-  README
+
+Files:
+README
+
+makefile
+
+CSCI4229_projectproposal.pdf
+
+jason_funcs.h
+CSCIx229.h
+
+stands_proj_func.c
+final.c
+superdome_proj_func.c
+firework_proj_func.c
+scene_proj_func.c
+skybox_proj_func.c
+
+print.c
+object.c
+project.c
+loadtexbmp.c
+errcheck.c
+fatal.c
+
+apt1.bmp
+concrete_logo.bmp
+field.bmp
+insulation.bmp
+marble.bmp
+wallvine.bmp
+wall.bmp
+apt2.bmp
+apt3.bmp
+leather.bmp
+office1.bmp
+swamp.bmp
+water.bmp
+canvas.bmp
+edge.bmp
+floor.bmp
+office2.bmp
+road.bmp
+td_drew.bmp
+wood.bmp
+concrete_edge.bmp
+grass.bmp
+look.bmp
+office3.bmp
+td_kamara.bmp
+woodwall.bmp
+concrete_face.bmp
+illusion.bmp
+office4.bmp
+td_whodat.bmp

@@ -17,7 +17,7 @@ double dim=100.0;   //  Size of world
 int ntex = 0;
 int rep = 1;
 int one       =   1;  // Unit value
-int distance  =   10;  // Light distance
+int distance  =   80;  // Light distance
 int inc       =  10;  // Ball increment
 int smooth    =   1;  // Smooth/Flat shading
 int local     =   0;  // Local Viewer Model
@@ -28,16 +28,16 @@ int specular  =   0;  // Specular intensity (%)
 int shininess =   0;  // Shininess (power of two)
 float shiny   =   1;  // Shininess (value)
 int zh        =  90;  // Light azimuth
-float ylight  =   10;  // Elevation of light
+float ylight  =  20;  // Elevation of light
 double bnc = 0;
-int print = 0;
-int pis = 1;
-int spin = 0;
+int print = 0, pis = 1, spin = 0, win = 0;
 int vpi = 1; // view for the piston; 1 for full length, 0 for one of them
-int disp = 0;
-int win = 0;
+int disp = 3; //fix the display for debugging purposes
+int x_st=-650, y_st=-20, z_st=-650, ro_st=180; // start for the ferry to travel around the map
 
-unsigned int texture[24]; // Texture names
+
+
+unsigned int texture[25]; // Texture names
 
 /*
  *  Draw a ball
@@ -113,21 +113,23 @@ void display(){
 			mississippi_river_proj(0, -10, -800, 1, 1, 1, 0);
 			mississippi_river_proj(800, -10, 0, 1, 1, 1, 90);
 			mississippi_river_proj(-800, -10, 0, 1, 1, 1, 90);
+			draw_ferry_proj(x_st, y_st+bnc, z_st, 1, ro_st);
 			break;
 		case 1:
 			/* draw the inside of the superdome */
 			draw_stand1_proj(0, -4, 0, 0.25, 0.25, 0.25, 0);
 			draw_superdome_proj(0, 0, 0, 1, 1, 1, 0);
 			break;
-		case 2: 
+		case 2:
+			draw_ferry_proj(x_st, y_st+bnc, z_st, 1, ro_st);
 			skybox_proj(0, 140, 0, 2, 2, 2, 0);
-			mississippi_river_proj(0, -10, 800, 1, 1, 1, 0);
-			mississippi_river_proj(0, -10, -800, 1, 1, 1, 0);
+			mississippi_river_proj(0, -10+0.1, 800, 1, 1, 1, 0);
+			mississippi_river_proj(0, -10+0.1, -800, 1, 1, 1, 0);
 			mississippi_river_proj(800, -10, 0, 1, 1, 1, 90);
 			mississippi_river_proj(-800, -10, 0, 1, 1, 1, 90);
 			break;
 		case 3:
-			draw_stand0_proj(0, 0, 0, 1, 1, 1, 0);
+			draw_ferry_proj(0, 0, 0, 1, 0);
 			break;
 		case 4:
 			draw_stand1_proj(0, 0, 0, 0.25, 0.25, 0.25, 0);
@@ -197,6 +199,24 @@ void idle(){
 		if(spin > 360.0) spin = spin - 360.0;
 		bnc = 2.5*Cos(spin) - 2.5*Sin(spin);
 	}
+
+
+	//moving the ferry around the map
+	if(z_st >= -650 && x_st == -650){
+		ro_st=-90;z_st += 1;
+	}
+	if(z_st == 650 && x_st >= -650){
+		ro_st=0; x_st+=1;
+	}
+	if(z_st <= 650 && x_st == 650){
+		ro_st=90; z_st-=1;
+	}
+	if(z_st == -650 && x_st <= 650){
+		ro_st=180; x_st-=1;
+	}
+
+	//z_pos -= 2;
+	//z_pos -= 2;
 
 	//  Tell GLUT it is necessary to redisplay the scene
 	glutPostRedisplay();
@@ -343,6 +363,7 @@ int main(int argc,char* argv[]) {
 	texture[21] = 	LoadTexBMP("apt2.bmp"); // apartment building
 	texture[22] = 	LoadTexBMP("apt3.bmp"); // apartment building
 	texture[23] = 	LoadTexBMP("wall.bmp"); // wall tx that is use for roof of building
+	texture[24] = 	LoadTexBMP("wood.bmp"); // wood for the deck of the ferry
 	//  Pass control to GLUT so it can interact with the user
 	ErrCheck("init");
 	glutMainLoop();

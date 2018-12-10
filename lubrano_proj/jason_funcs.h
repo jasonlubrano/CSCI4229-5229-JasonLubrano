@@ -54,7 +54,7 @@ int pis;
 int spin;
 int vpi; // view for the piston; 1 for full length, 0 for one of them
 
-unsigned int texture[24]; // Texture names
+unsigned int texture[25]; // Texture names
 
 /*
  *  Skybox Funcs
@@ -86,6 +86,8 @@ void bldg_office3_proj(double x, double y, double z, double dx, double dy, doubl
 void bldg_office4_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
 void mississippi_river_proj(double x, double y, double z, double dx, double dy, double dz, double th);
+
+void draw_ferry_proj(double x, double y, double z, double ds, double th);
 
 /*
  *  Superdome Funcs

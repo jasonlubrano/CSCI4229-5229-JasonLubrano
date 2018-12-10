@@ -627,6 +627,196 @@ void mississippi_river_proj(double x, double y, double z, double dx, double dy, 
 }
 
 
+
+/*
+ * creating the ferry
+ * I drew a schematic for it labling points
+ */
+void draw_ferry_proj(double x, double y, double z, double ds, double th){
+	/* create arrays so it helps with the cad drawing I did
+	-----------	0		1		2		3		4		5	*/
+	int xs[] = {0, 		10, 	30, 	40, 	60, 	70	};
+	int ys[] = {0, 		20, 	30, 	40 					};
+	int zs[] = {0, 		5, 		10, 	20, 	25, 	30	};
+	glPushMatrix();
+	// zOffset and scale
+	glTranslated(x, y ,z);
+	glRotated(th, 0, 1, 0);
+	glScaled(ds, ds, ds);
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
+	//star board
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[11]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(+1, 0, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[0], ys[1], zs[0]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[1], ys[0], zs[2]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[4], ys[0], zs[2]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[5], ys[1], zs[0]); // top left
+	glEnd();
+	// portside
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[11]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(-1, 0, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[0], ys[1], zs[5]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[1], ys[0], zs[3]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[4], ys[0], zs[3]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[5], ys[1], zs[5]); // top left
+	glEnd();
+	// bow
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[11]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, 0, +1);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[5], ys[1], zs[0]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[4], ys[0], zs[2]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[4], ys[0], zs[3]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[5], ys[1], zs[5]); // top left
+	glEnd();
+	// stern
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[11]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, 0, -1);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[0], ys[1], zs[0]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[1], ys[0], zs[2]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[1], ys[0], zs[3]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[0], ys[1], zs[5]); // top left
+	glEnd();
+	//undercarriage
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[11]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, -1, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[1], ys[0], zs[2]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[4], ys[0], zs[2]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[4], ys[0], zs[3]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[1], ys[0], zs[3]); // top left
+	glEnd();
+	//deck
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[24]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, +1, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[0], ys[1], zs[0]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[5], ys[1], zs[0]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[5], ys[1], zs[5]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[0], ys[1], zs[5]); // top left
+	glEnd();
+	
+
+	//cabin
+	//starboard
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[18]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(+1, 0, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[0], ys[2], zs[1]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[0], ys[1], zs[1]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[3], ys[1], zs[1]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[3], ys[2], zs[1]); // top left
+	glEnd();
+	//portside
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[18]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(-1, 0, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[0], ys[2], zs[4]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[0], ys[1], zs[4]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[3], ys[1], zs[4]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[3], ys[2], zs[4]); // top left
+	glEnd();
+	//stern
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[18]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, 0, -1);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[0], ys[2], zs[1]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[0], ys[1], zs[1]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[0], ys[1], zs[4]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[0], ys[2], zs[4]); // top left
+	glEnd();
+	//bow
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[18]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, 0, +1);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[3], ys[2], zs[1]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[3], ys[1], zs[1]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[3], ys[1], zs[4]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[3], ys[2], zs[4]); // top left
+	glEnd();
+	//deck
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[24]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, +1, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[0], ys[2], zs[1]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[3], ys[2], zs[1]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[3], ys[2], zs[4]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[0], ys[2], zs[4]); // top left
+	glEnd();
+	//top floor
+	//starboard
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[18]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(+1, 0, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[2], ys[3], zs[2]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[2], ys[2], zs[2]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[3], ys[2], zs[2]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[3], ys[3], zs[2]); // top left
+	glEnd();
+	// portside
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[18]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(-1, 0, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[2], ys[3], zs[3]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[2], ys[2], zs[3]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[3], ys[2], zs[3]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[3], ys[3], zs[3]); // top left
+	glEnd();
+	// bow
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[18]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, 0, +1);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[3], ys[3], zs[2]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[3], ys[2], zs[2]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[3], ys[2], zs[3]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[3], ys[3], zs[3]); // top left
+	glEnd();
+	// stern
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[18]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, 0, -1);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[2], ys[3], zs[2]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[2], ys[2], zs[2]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[2], ys[2], zs[3]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[2], ys[3], zs[3]); // top left
+	glEnd();
+	// roof
+	glColor3f(1.0, 1.0, 1.0);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[24]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, +1, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(xs[2], ys[3], zs[2]); // top right
+	glTexCoord2f(rep, 	0); 	glVertex3f(xs[2], ys[3], zs[3]); // bottom right
+	glTexCoord2f(rep, 	rep); 	glVertex3f(xs[3], ys[3], zs[3]); // bottom left
+	glTexCoord2f(0, 	rep); 	glVertex3f(xs[3], ys[3], zs[2]); // top left
+	glEnd();
+
+
+	glPopMatrix();
+}
+
+
+
+
 void draw_scene_proj(double x, double y, double z, double dx, double dy, double dz, double ro){
 	glPushMatrix();
 	//  Offset, scale and rotate

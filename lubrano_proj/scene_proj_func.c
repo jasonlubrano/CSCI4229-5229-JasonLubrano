@@ -628,6 +628,45 @@ void mississippi_river_proj(double x, double y, double z, double dx, double dy, 
 
 
 
+void draw_road_proj(double x, double y, double z, double ds, double th){
+	int wd = 500, ht = 1, dp = 50, trep=8;
+	glPushMatrix();
+   	// zOffset and scale
+   	glTranslated(x, y ,z);
+   	glRotated(th, 0, 1, 0);
+  	glScaled(ds, ds, ds);
+  	glColor3f(0.50, 0.50, 0.50);
+	glEnable(GL_TEXTURE_2D);
+	glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D,texture[25]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glNormal3f(0, +1, 0);
+	glTexCoord2f(0, 	0); 	glVertex3f(-wd, +ht, +dp);
+	glTexCoord2f(trep, 	0); 	glVertex3f(+wd, +ht, +dp);
+	glTexCoord2f(trep, 	1); 	glVertex3f(+wd, +ht, -dp);
+	glTexCoord2f(0, 	1); 	glVertex3f(-wd, +ht, -dp);
+	glEnd();
+	glPopMatrix();
+}
+
+void draw_roads_proj(double x, double y, double z, double ds, double th){
+	glPushMatrix();
+   	// zOffset and scale
+   	glTranslated(x, y ,z);
+   	glRotated(th, 0, 1, 0);
+  	glScaled(ds, ds, ds);
+	draw_road_proj(0, -10, 0, 1, 0);
+	draw_road_proj(0, -10, 240, 1, 0);
+	draw_road_proj(0, -10, -240, 1, 0);
+	draw_road_proj(0, -9.8, 480, 1, 0);
+	draw_road_proj(0, -9.8, -480, 1, 0);
+	draw_road_proj(0, -9.9, 0, 1, 90);
+	draw_road_proj(240, -9.9, 0, 1, 90);
+	draw_road_proj(-240, -9.9, 0, 1, 90);
+	draw_road_proj(-480, -9.9, 0, 1, 90);
+	draw_road_proj(480, -9.9, 0, 1, 90);
+	glPopMatrix();
+}
 /*
  * creating the ferry
  * I drew a schematic for it labling points

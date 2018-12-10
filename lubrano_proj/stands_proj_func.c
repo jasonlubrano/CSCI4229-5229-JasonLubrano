@@ -360,11 +360,10 @@ void draw_stand1_proj(double x, double y, double z, double dx, double dy, double
 	// endzone
 
 	for(f = 0; f < 10; f+=2){
-		for(g = 70; g <= 110; g += 2){
+		for(g = 70; g <= 110; g += 5){
 			draw_stand0_proj(r1*Cos(g), f+1, r1*Sin(g), 0.25, 0.25, 0.25, -g-90);
 		}
-		// endzone
-		for(g = -110; g <= -70; g += 2){
+		for(g = -110; g <= -70; g += 5){
 			draw_stand0_proj(r1*Cos(g), f+1, r1*Sin(g), 0.25, 0.25, 0.25, -g-90);
 		}
 		r1 += 3;
@@ -372,7 +371,38 @@ void draw_stand1_proj(double x, double y, double z, double dx, double dy, double
 	
 	r2=50;
 	for(f = 0; f < 10; f+=2){
-		for(g = 0; g <= 60; g += 2){
+		for(g = 0; g <= 60; g += 5){
+			draw_stand0_proj(-r2, f+1, g, 0.25, 0.25, 0.25, 90);
+			draw_stand0_proj(-r2, f+1, -g, 0.25, 0.25, 0.25, 90);
+			draw_stand0_proj(r2, f+1, g, 0.25, 0.25, 0.25, -90);
+			draw_stand0_proj(r2, f+1, -g, 0.25, 0.25, 0.25, -90);
+		}
+		r2+=3;
+	}
+	
+	r1=60;
+	for(f = 20; f <= 30; f+=2){
+		for(g = 0; g <= 180; g += 5){
+			glPushMatrix();
+			glTranslated(0, 0, +60);
+			draw_stand0_proj(r1*Cos(g), f+1, r1*Sin(g), 0.25, 0.25, 0.25, -g-90);
+			glPopMatrix();
+		}
+		// endzone
+		for(g = 180; g <= 360; g += 5){
+			glPushMatrix();
+			glTranslated(0, 0, -60);
+			draw_stand0_proj(r1*Cos(g), f+1, r1*Sin(g), 0.25, 0.25, 0.25, -g-90);
+			glPopMatrix();
+		}
+		r1 += 3;
+	}
+
+
+	// endzone
+	r2=60;
+	for(f = 20; f <= 30; f+=2){
+		for(g = 0; g <= 60; g += 5){
 			draw_stand0_proj(-r2, f+1, g, 0.25, 0.25, 0.25, 90);
 			draw_stand0_proj(-r2, f+1, -g, 0.25, 0.25, 0.25, 90);
 			draw_stand0_proj(r2, f+1, g, 0.25, 0.25, 0.25, -90);
@@ -381,6 +411,36 @@ void draw_stand1_proj(double x, double y, double z, double dx, double dy, double
 		r2+=3;
 	}
 
+	r1=80;
+	for(f = 40; f <= 60; f+=2){
+		for(g = 0; g <= 180; g += 5){
+			glPushMatrix();
+			glTranslated(0, 0, +60);
+			draw_stand0_proj(r1*Cos(g), f+1, r1*Sin(g), 0.25, 0.25, 0.25, -g-90);
+			glPopMatrix();
+		}
+		// endzone
+		for(g = 180; g <= 360; g += 5){
+			glPushMatrix();
+			glTranslated(0, 0, -60);
+			draw_stand0_proj(r1*Cos(g), f+1, r1*Sin(g), 0.25, 0.25, 0.25, -g-90);
+			glPopMatrix();
+		}
+		r1 += 3;
+	}
+
+	r2=80;
+	for(f = 40; f <= 60; f+=2){
+		for(g = 0; g <= 60; g += 5){
+			draw_stand0_proj(-r2, f+1, g, 0.25, 0.25, 0.25, 90);
+			draw_stand0_proj(-r2, f+1, -g, 0.25, 0.25, 0.25, 90);
+			draw_stand0_proj(r2, f+1, g, 0.25, 0.25, 0.25, -90);
+			draw_stand0_proj(r2, f+1, -g, 0.25, 0.25, 0.25, -90);
+		}
+		r2+=3;
+	}
+	
+	
 
 	glPopMatrix();
 }

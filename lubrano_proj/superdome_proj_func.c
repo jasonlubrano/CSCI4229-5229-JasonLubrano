@@ -9,53 +9,52 @@ int highshiny = 25;
  *  The resolution is fixed at 36 slices (10 degrees each)
  */
 void superdome_proj(double x, double y, double z, double r, double d, double th){
-   int i,k;
-   glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,highshiny);
-   glEnable(GL_TEXTURE_2D);
-   //  Save transformation
-   glPushMatrix();
-   //  Offset and scale
-   glTranslated(x, y ,z);
-   glRotated(th, 1, 0, 0);
-   glScaled(r, r, d);
-   //  Head & Tail
-   glColor3f(1.0, 1.0, 1.0);
-   //for (i=1;i>=-1;i-=2){
-      i = 1;
-      (!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[2]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
-      glNormal3f(0, 0, -i);
-      glBegin(GL_TRIANGLE_FAN);
-      glTexCoord2f(0.5, 0.5);
-      glVertex3f(0, 0, i);
-      for (k = 0; k <= 360; k += 10){
-         glTexCoord2f((0.5 * Cos(k) + 0.5), (0.5 * Sin(k) + 0.5));
-         glVertex3f(i * Cos(k),	Sin(k), i);
-      }
-      glEnd();
-   //}
-   //  Edge
-   (!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[3]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
-   glColor3f(1.0, 1.0, 1.0);
-   glBegin(GL_QUAD_STRIP);
-   for (k = 0; k <= 360; k += 10) {
-      glNormal3f(Cos(k),Sin(k),0);
-      glTexCoord2f(0,	0.2*k);		glVertex3f(Cos(k)*.90,	Sin(k)*.90,	0);
-      glTexCoord2f(1,	0.2*k);		glVertex3f(Cos(k),	Sin(k),	-1);
-   }
-   glEnd();
-   //  Edge
-   (!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[3]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
-   glColor3f(1.0, 1.0, 1.0);
-   glBegin(GL_QUAD_STRIP);
-   for (k = 0; k <= 360; k += 10) {
-      glNormal3f(Cos(k),Sin(k),0);
-      glTexCoord2f(0,	0.2*k);		glVertex3f(Cos(k),	Sin(k),	1);
-      glTexCoord2f(1,	0.2*k);		glVertex3f(Cos(k)*.90,	Sin(k)*.90,	0);
-   }
-   glEnd();
-   //  Undo transformations
-   glPopMatrix();
-   glDisable(GL_TEXTURE_2D);
+	int i,k;
+	glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,highshiny);
+	glEnable(GL_TEXTURE_2D);
+	//  Save transformation
+	glPushMatrix();
+	//  Offset and scale
+	glTranslated(x, y ,z);
+	glRotated(th, 1, 0, 0);
+	glScaled(r, r, d);
+	glColor3f(1.0, 1.0, 1.0);
+	//for (i=1;i>=-1;i-=2){
+	i = 1;
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[2]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glNormal3f(0, 0, -i);
+	glBegin(GL_TRIANGLE_FAN);
+	glTexCoord2f(0.5, 0.5);
+	glVertex3f(0, 0, i);
+	for (k = 0; k <= 360; k += 10){
+		glTexCoord2f((0.5 * Cos(k) + 0.5), (0.5 * Sin(k) + 0.5));
+		glVertex3f(i * Cos(k),	Sin(k), i);
+	}
+	glEnd();
+	//}
+	//  Edge
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[3]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glColor3f(1.0, 1.0, 1.0);
+	glBegin(GL_QUAD_STRIP);
+	for (k = 0; k <= 360; k += 10) {
+		glNormal3f(Cos(k),Sin(k),0);
+		glTexCoord2f(0,	0.2*k);		glVertex3f(Cos(k)*.90,	Sin(k)*.90,	0);
+		glTexCoord2f(1,	0.2*k);		glVertex3f(Cos(k),	Sin(k),	-1);
+	}
+	glEnd();
+	//  Edge
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[3]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glColor3f(1.0, 1.0, 1.0);
+	glBegin(GL_QUAD_STRIP);
+	for (k = 0; k <= 360; k += 10) {
+		glNormal3f(Cos(k),Sin(k),0);
+		glTexCoord2f(0,	0.2*k);		glVertex3f(Cos(k),	Sin(k),	1);
+		glTexCoord2f(1,	0.2*k);		glVertex3f(Cos(k)*.90,	Sin(k)*.90,	0);
+	}
+	glEnd();
+	//  Undo transformations
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
 }
 
 void bottomfloor_proj(double x, double y, double z, double dx, double dy, double dz, double th) {
@@ -137,52 +136,52 @@ void bottomfloor_proj(double x, double y, double z, double dx, double dy, double
 }
 
 void floor0_proj(double x, double y, double z, double r, double d, double th){
-   int i,k;
-   glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,highshiny);
-   glEnable(GL_TEXTURE_2D);
-   //  Save transformation
-   glPushMatrix();
-   //  Offset and scale
-   glTranslated(x, y ,z);
-   glRotated(th, 1, 0, 0);
-   glScaled(r, r, d);
-   //  Head & Tail
-   glColor3f(1, 1, 1);
-   for (i=1;i>=-1;i-=2){
-      (!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[6]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
-      glNormal3f(0, 0, -i);
-      glBegin(GL_TRIANGLE_FAN);
-      glTexCoord2f(0.5, 0.5);
-      glVertex3f(0, 0, i);
-      for (k = 0; k <= 360; k += 10){
-         glTexCoord2f((0.5 * Cos(k) + 0.5), (0.5 * Sin(k) + 0.5));
-         glVertex3f(i * Cos(k),	Sin(k), i);
-      }
-      glEnd();
-   }
-   //  Edge
-   (!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[6]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
-   glColor3f(1.00, 0.77, 0.36);
-   glBegin(GL_QUAD_STRIP);
-   for (k = 0; k <= 360; k += 10) {
-      glNormal3f(Cos(k),Sin(k),0);
-      glTexCoord2f(0,	0.2*k);		glVertex3f(Cos(k)*.90,	Sin(k)*.90,	0);
-      glTexCoord2f(1,	0.2*k);		glVertex3f(Cos(k),	Sin(k),	-1);
-   }
-   glEnd();
-   //  Edge
-   (!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[6]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
-   glColor3f(1.00, 0.77, 0.36);
-   glBegin(GL_QUAD_STRIP);
-   for (k = 0; k <= 360; k += 10) {
-      glNormal3f(Cos(k),Sin(k),0);
-      glTexCoord2f(0,	0.2*k);		glVertex3f(Cos(k),	Sin(k),	1);
-      glTexCoord2f(1,	0.2*k);		glVertex3f(Cos(k)*.90,	Sin(k)*.90,	0);
-   }
-   glEnd();
-   //  Undo transformations
-   glPopMatrix();
-   glDisable(GL_TEXTURE_2D);
+	int i,k;
+	glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,highshiny);
+	glEnable(GL_TEXTURE_2D);
+	//  Save transformation
+	glPushMatrix();
+	//  Offset and scale
+	glTranslated(x, y ,z);
+	glRotated(th, 1, 0, 0);
+	glScaled(r, r, d);
+	//  Head & Tail
+	glColor3f(1, 1, 1);
+	for (i=1;i>=-1;i-=2){
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[6]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glNormal3f(0, 0, -i);
+	glBegin(GL_TRIANGLE_FAN);
+	glTexCoord2f(0.5, 0.5);
+	glVertex3f(0, 0, i);
+	for (k = 0; k <= 360; k += 10){
+		glTexCoord2f((0.5 * Cos(k) + 0.5), (0.5 * Sin(k) + 0.5));
+		glVertex3f(i * Cos(k),	Sin(k), i);
+	}
+	glEnd();
+	}
+	//  Edge
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[6]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glColor3f(1.00, 0.77, 0.36);
+	glBegin(GL_QUAD_STRIP);
+	for (k = 0; k <= 360; k += 10) {
+		glNormal3f(Cos(k),Sin(k),0);
+		glTexCoord2f(0,	0.2*k);		glVertex3f(Cos(k)*.90,	Sin(k)*.90,	0);
+		glTexCoord2f(1,	0.2*k);		glVertex3f(Cos(k),	Sin(k),	-1);
+	}
+	glEnd();
+	//  Edge
+	(!ntex) ? glBindTexture(GL_TEXTURE_2D, texture[6]) : glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glColor3f(1.00, 0.77, 0.36);
+	glBegin(GL_QUAD_STRIP);
+	for (k = 0; k <= 360; k += 10) {
+		glNormal3f(Cos(k),Sin(k),0);
+		glTexCoord2f(0,	0.2*k);		glVertex3f(Cos(k),	Sin(k),	1);
+		glTexCoord2f(1,	0.2*k);		glVertex3f(Cos(k)*.90,	Sin(k)*.90,	0);
+	}
+	glEnd();
+	//  Undo transformations
+	glPopMatrix();
+	glDisable(GL_TEXTURE_2D);
 }
 
 

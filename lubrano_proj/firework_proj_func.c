@@ -38,7 +38,7 @@ void draw_firework1_proj(double x, double y, double z, double ds){
    	glTranslated(x, y ,z);
   	glScaled(ds, ds, ds);
 	//glColor4f(1.0f, 1.0f, 0.3f, 0.0f);//yellow
-	glColor3f(1.0f, 0.6f, 0.3f);//Orange
+	glColor3f(0.5f, 1.0f, 0.5f);//Orange0.5 1.0 0.5 light green
 	glBegin(GL_POINTS);
 	for(i=0;i<NUM_FIREWORKS;i++) {
 		if(fireworks[i].lifetime) {
@@ -100,7 +100,7 @@ void draw_firework3_proj(double x, double y, double z, double ds){
    	glTranslated(x, y ,z);
   	glScaled(ds, ds, ds);
 	//glColor3f(1.0f, 0.10f, 0.85f);
-		glColor3f(1.0f, 1.0f, 0.2f);
+	glColor3f(1.0f, 1.0f, 0.2f);
 	glBegin(GL_POINTS);
 	for(i=0;i<NUM_FIREWORKS;i++) {
 		if(fireworks[i].lifetime) {

@@ -54,7 +54,7 @@ int pis;
 int spin;
 int vpi; // view for the piston; 1 for full length, 0 for one of them
 
-unsigned int texture[25]; // Texture names
+unsigned int texture[26]; // Texture names
 
 /*
  *  Skybox Funcs
@@ -89,6 +89,10 @@ void mississippi_river_proj(double x, double y, double z, double dx, double dy, 
 
 void draw_ferry_proj(double x, double y, double z, double ds, double th);
 
+void draw_road_proj(double x, double y, double z, double ds, double th);
+
+void draw_roads_proj(double x, double y, double z, double ds, double th);
+
 /*
  *  Superdome Funcs
  */
@@ -121,7 +125,6 @@ void legseat_proj(double x, double y, double z, double dx, double dy, double dz,
 void draw_stand0_proj(double x, double y, double z, double dx, double dy, double dz, double th);
 
 void draw_stand1_proj(double x, double y, double z, double dx, double dy, double dz, double th);
-
 
 /*
  *  Fireworks Funcs

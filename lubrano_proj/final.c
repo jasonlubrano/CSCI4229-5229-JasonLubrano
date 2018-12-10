@@ -32,12 +32,14 @@ float ylight  =  20;  // Elevation of light
 double bnc = 0;
 int print = 0, pis = 1, spin = 0, win = 0;
 int vpi = 1; // view for the piston; 1 for full length, 0 for one of them
-int disp = 3; //fix the display for debugging purposes
+int disp = 0; //fix the display for debugging purposes
 int x_st=-650, y_st=-20, z_st=-650, ro_st=180; // start for the ferry to travel around the map
 
 
 
-unsigned int texture[25]; // Texture names
+
+unsigned int texture[26]; // Texture names
+
 
 /*
  *  Draw a ball
@@ -114,6 +116,7 @@ void display(){
 			mississippi_river_proj(800, -10, 0, 1, 1, 1, 90);
 			mississippi_river_proj(-800, -10, 0, 1, 1, 1, 90);
 			draw_ferry_proj(x_st, y_st+bnc, z_st, 1, ro_st);
+			draw_roads_proj(0, 0, 0, 1, 0);
 			break;
 		case 1:
 			/* draw the inside of the superdome */
@@ -132,7 +135,7 @@ void display(){
 			draw_ferry_proj(0, 0, 0, 1, 0);
 			break;
 		case 4:
-			draw_stand1_proj(0, 0, 0, 0.25, 0.25, 0.25, 0);
+			draw_superdome_proj(0, 0, 0, 1, 1, 1, 0);
 			break;
 		case 5:
 			draw_scene_proj(0, 0, 0, 1, 1, 1, 0);
@@ -200,7 +203,6 @@ void idle(){
 		bnc = 2.5*Cos(spin) - 2.5*Sin(spin);
 	}
 
-
 	//moving the ferry around the map
 	if(z_st >= -650 && x_st == -650){
 		ro_st=-90;z_st += 1;
@@ -259,6 +261,7 @@ void key(unsigned char ch,int x,int y){
 	else if (ch == '0') th = ph = 0;
 	//  Toggle texture mode
 	else if (ch == 'm' || ch == 'M') mode = 1-mode;
+	
 	//  Toggle axes
 	else if (ch == 'x' || ch == 'X') axes = 1-axes;
 	//  Toggle lighting
@@ -288,15 +291,20 @@ void key(unsigned char ch,int x,int y){
 	else if (ch=='+') rep++;
 	else if (ch=='-' && rep>1) rep--;
 	else if (ch == 'h')if(win>0){win--;} else {win = 3 - win;}
-	// easy dim
+	// look inside of the superdome
 	else if (ch == 'k'){disp=1; dim = 28.3; th = 270; ph = 30; distance = 2; mode = 0;
 		ambient = 0; diffuse = 100; specular = 0; emission = 0;shininess = 7; ylight = 14;}
-	else if (ch == 'K'){dim = 160.0; th = 270; ph = 30; distance = 50;}
-	else if (ch == 'i'){dim = 1250; th = 0; ph = 90; distance = 700;}
-	else if (ch == 'I'){dim = 5; th = 270; ph = 30; distance = 2; mode = 0; 
+	// look outside at the superdome, drawn by itself
+	else if (ch == 'K'){disp = 4; dim = 160.0; th = 0; ph = 20; distance = 50;}
+	//draw the ferry stand alone
+	else if (ch == 'i'){disp = 3; dim = 100; th = 0; ph = 20; distance = 700;}
+	//look at the superdome from the ground floor
+	else if (ch == 'I'){disp=1; dim = 5; th = 270; ph = 30; distance = 2; mode = 0; 
 		ambient = 0; diffuse = 100; specular = 0; emission = 0;shininess = 7; ylight = 14;}
+	//get a good view of the city
 	else if (ch == 'o'){disp = 0; dim = 500; th = -90; ph = 15; distance = 50; mode = 0;
 		ambient = bnc; diffuse = 100; specular = 0; emission = 0;shininess = 7; distance = 60; ylight = 220;}
+	//view the skybox and the boat without any buildings
 	else if (ch == 'u'){disp = 2; dim = 500; th = -90; ph = 15; distance = 50; mode = 0;
 		ambient = bnc; diffuse = 100; specular = 0; emission = 0;shininess = 7; ylight = 30;}
 	//  Translate shininess power to value (-1 => 0)
@@ -328,7 +336,7 @@ int main(int argc,char* argv[]) {
 	//  Request double buffered, true color window with Z buffering at 600x600
 	glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
 	glutInitWindowSize(1000,600);
-	glutCreateWindow("Jason Lubrano, hw6");
+	glutCreateWindow("Jason Lubrano, Final Project");
 
     glDepthFunc(GL_LEQUAL);    
     glShadeModel (GL_SMOOTH);
@@ -364,6 +372,7 @@ int main(int argc,char* argv[]) {
 	texture[22] = 	LoadTexBMP("apt3.bmp"); // apartment building
 	texture[23] = 	LoadTexBMP("wall.bmp"); // wall tx that is use for roof of building
 	texture[24] = 	LoadTexBMP("wood.bmp"); // wood for the deck of the ferry
+	texture[25] = 	LoadTexBMP("road.bmp"); // wood for the deck of the ferry
 	//  Pass control to GLUT so it can interact with the user
 	ErrCheck("init");
 	glutMainLoop();

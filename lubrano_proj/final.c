@@ -3,6 +3,8 @@
  * final project */
 #include "CSCIx229.h"
 #include "jason_funcs.h"
+//#include <irrKlang.h>
+
 
 int axes=0;       //  Display axes
 int mode=1;       //  Projection mode
@@ -34,8 +36,6 @@ int print = 0, pis = 1, spin = 0, win = 0;
 int vpi = 1; // view for the piston; 1 for full length, 0 for one of them
 int disp = 0; //fix the display for debugging purposes
 int x_st=-650, y_st=-20, z_st=-650, ro_st=180; // start for the ferry to travel around the map
-
-
 
 
 unsigned int texture[26]; // Texture names
@@ -327,6 +327,27 @@ void reshape(int width,int height){
 }
 
 
+
+
+
+
+
+
+
+/* doing music */
+
+
+
+
+
+
+
+
+
+
+
+
+/* end music */
 	
 
 int main(int argc,char* argv[]) {
@@ -336,7 +357,11 @@ int main(int argc,char* argv[]) {
 	glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
 	glutInitWindowSize(1000,600);
 	glutCreateWindow("Jason Lubrano, Final Project");
-
+	//alutLoadWAVFile("down_in_new_orleans.wav",&alFormatBuffer, (void **) &alBuffer,(unsigned int *)&alBufferLen, &alFreqBuffer, &alLoop);
+	//PlaySound("down_in_new_orleans.wav",NULL, SND_SYNC);
+	//sndPlaySound("down_in_new_orleans.wav",SND_ASYNC);
+	//engine->play2D("down_in_new_orleans.wav", true);
+	//PlaySound(TEXT("down_in_new_orleans.wav"), NULL, SND_FILENAME | SND_ASYNC);
     glDepthFunc(GL_LEQUAL);    
     glShadeModel (GL_SMOOTH);
 	//  Set callbacks
@@ -346,6 +371,8 @@ int main(int argc,char* argv[]) {
 	glutKeyboardFunc(key);
 	glutIdleFunc(idle);
 	//  Load textures
+
+	//play();
 	texture[0] 	= 	LoadTexBMP("grass.bmp"); // for outside
 	texture[1] 	= 	LoadTexBMP("illusion.bmp"); // for illusion
 	texture[2] 	= 	LoadTexBMP("concrete_face.bmp"); // for top and bottom of dome

@@ -7,6 +7,17 @@
 #include <string.h>
 #include <math.h>
 
+#include <errno.h>
+#include <stdint.h>
+#include <inttypes.h>
+#include <unistd.h>
+#include <stdbool.h>
+
+
+#include <AL/al.h>
+#include <AL/alc.h>
+
+
 #ifdef USEGLEW
 #include <GL/glew.h>
 #endif
@@ -137,10 +148,6 @@ void draw_firework2_proj(double x, double y, double z, double ds);
 void draw_firework3_proj(double x, double y, double z, double ds);
 
 void init_fireworks_proj(int pause);
-
-
-
-
 
 
 #ifdef __cplusplus
